@@ -1,24 +1,26 @@
-# README
+製品名
+先生の図書館
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+製品概要
+小学校教員の教材作り、指導案の参考、所見の参考となるwebアプリ。
+日本の教員の労働時間は世界的に見てもかなり長い。学校現場で求められることが非常に多くなっており、残業が多い。その忙しさを解決するアプリ。
+一人一人の教員が日頃作成したワークシートや、指導案を持ち寄り、全国の小学校教員の作成したものを共有することで、残業時間を減らすことを目的としている。
 
-Things you may want to cover:
+機能一覧
+システムを構成する機能
+1. エクセル、ワード、画像などをアップロード、ダウンロードできること
+2. アップロードしたものにラベルをつけて検索できること（単元名や、総合の材など）
+3. アップロードしたファイルの閲覧数が見れる。また、お気に入りすることができる。
+4.自分のアップロードしたファイルを公開・非公開設定にすることができる。
+5.自分の担当学年に応じた通知機能。例えば、年度初めに４年生の担任と登録すると、担当学年のファイルがアップロードされると通知される機能。
+6.ログイン機能
+7.マイページ機能
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- バージョン情報
+- カタログ設計
+- 機能一覧
+- テーブル定義書
+- ER図
+- 画面遷移図
+- ワイヤーフレーム
+- 使用予定Gem
