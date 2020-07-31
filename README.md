@@ -41,7 +41,6 @@
 ## カタログ設計,テーブル定義書,ER図,画面遷移図,ワイヤーフレーム
 https://docs.google.com/spreadsheets/d/1DaYEDnCQL7vPeiQ1hxnlrxwWCbHFa1e9tcc9jl2v0K0/edit#gid=0
 ## 使用予定Gem
-- simple_calender
 - kaminari
 - carrierwave
 - mini_magick
