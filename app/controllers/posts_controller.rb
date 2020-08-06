@@ -58,6 +58,14 @@ class PostsController < ApplicationController
                                 )
   end
 
+  def worksheets
+  end
+
+  def findings
+  end
+
+  def plans
+  end
   def set_post
     @post = Post.find(params[:id])
   end

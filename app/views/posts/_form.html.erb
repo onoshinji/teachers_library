@@ -11,30 +11,30 @@
 <% end %>
 <div id = "form">
   <div class="row">
-    <div class="col-md-2 col-md-offset-6">
+    <div class="text-center">
       <%= form.label :title %>
       <%= form.text_field :title %>
     </div>
     <br>
-    <div class="col-md-2 col-md-offset-6">
+    <div class="text-center">
       <%= form.label :content %>
       <%= form.text_field :content %>
     </div>
     <br>
-    <div class="col-md-2 col-md-offset-6">
+    <div class="text-center">
       <%= form.label :image %>
       <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
       <%= form.file_field :image %>
       <%= form.hidden_field :image_cache %>
     </div>
     <br>
-    <div class="col-md-6 col-md-offset-6">
+    <div class="text-center">
       <%= form.submit value = "投稿する"%>
     </div>
     <br>
   </div>
 </div>
 <% end %>
-<button type="button" class="btn btn-default col-md-2 col-md-offset-6">
+<button type="button" class="text-center">
   <%= link_to "投稿一覧画面にもどる", posts_path %>
 </button>
