@@ -1,5 +1,8 @@
 {
   "name": "teachers_library",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "4",
+    "jquery": "^3.5.1"
+  }
 }

@@ -4,7 +4,6 @@
     <title>TeachersLibrary</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -12,14 +11,14 @@
   <div class = "text-right header_text">
     <% if user_signed_in? %>
         <%= "ログイン中: #{current_user.name}さん" %>
-        <%= link_to "プロフィール", user_path(current_user.id) %>
+        <%= link_to "プロフィール", edit_user_registration_path(current_user.id) %>
         <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
       <% else %>
         <%= "あなたは今ログインしていません" %>
         <%= link_to "新規登録", new_user_registration_path %>
         <%= link_to "ログイン", new_user_session_path %>
     <% end %>
-    </div>
+  </div>
   </header>
   <body>
     <p class="notice"><%= notice %></p>
