@@ -2,11 +2,12 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
+gem 'devise'
+gem 'devise-i18n'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog-aws'
 gem 'faker' # ダミーデータ作成
-gem 'unicorn' # アプリケーションサーバのunicorn
 gem 'mini_racer', platforms: :ruby # デプロイ時に必要
 gem 'rails', '~> 5.2.4'
 gem 'pg', '>= 0.18', '< 2.0'
@@ -18,13 +19,13 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dotenv-rails'
+
 group :development, :test do
   gem 'capistrano', '3.6.0' # capistranoのツール一式
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano3-unicorn'
-  gem 'dotenv-rails'  # 環境変数を環境ごとに管理するのに便利なGem
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
   gem 'better_errors'
@@ -44,4 +45,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
