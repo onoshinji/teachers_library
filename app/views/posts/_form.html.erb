@@ -1,0 +1,40 @@
+<%= form_with(model: @post, local: true ) do |form| %>
+<% if @post.errors.any? %>
+<div id="error_explanation">
+  <h2><%= @post.errors.count %>件のエラーがあります。</h2>
+  <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div id = "form">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-6">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+    <br>
+    <div class="col-md-2 col-md-offset-6">
+      <%= form.label :content %>
+      <%= form.text_field :content %>
+    </div>
+    <br>
+    <div class="col-md-2 col-md-offset-6">
+      <%= form.label :image %>
+      <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
+      <%= form.file_field :image %>
+      <%= form.hidden_field :image_cache %>
+    </div>
+    <br>
+    <div class="col-md-6 col-md-offset-6">
+      <%= form.submit value = "投稿する"%>
+    </div>
+    <br>
+  </div>
+</div>
+<% end %>
+<button type="button" class="btn btn-default col-md-2 col-md-offset-6">
+  <%= link_to "投稿一覧画面にもどる", posts_path %>
+</button>

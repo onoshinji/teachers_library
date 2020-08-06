@@ -49,3 +49,6 @@ https://docs.google.com/spreadsheets/d/1DaYEDnCQL7vPeiQ1hxnlrxwWCbHFa1e9tcc9jl2v
 - devise_i18n
 - rspec-rails
 - capybara
+
+7/31　小野
+使用スキル
