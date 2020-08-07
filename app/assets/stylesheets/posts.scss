@@ -1,22 +1,21 @@
-
 html {
   position:relative;
   min-height: 100%;
 }
 header{
-  background-color: #e7b63a;
+  background-color: #8effff;
   height: 3rem;
   opacity: 0.9;
 }
 
 body{
-  background: linear-gradient(-45deg, rgba(#aaa816, 0.75), rgba(#bb22c3, 0.75)), image-url("records/hanabi.jpg");
-  background-size: cover;
-  mix-blend-mode: hard-light;
+  background: linear-gradient(rgba(#c1ffe0, 0.75), rgba(#c1c1ff, 0.75)), image-url("");
+  // background-size: cover;
+  // mix-blend-mode: hard-light;
 }
 
 .header_text{
-  font-size: 2rem;
+  font-size: 1rem;
   color: #2e82b1;
 }
 #form{
@@ -24,7 +23,7 @@ body{
 }
 
 #margin{
-margin-bottom: 6rem;
+  margin-bottom: 6rem;
 }
 #index_color{
   background-color: #dee9c2;

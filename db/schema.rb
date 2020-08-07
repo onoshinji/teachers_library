@@ -1,5 +1,4 @@
-
-ActiveRecord::Schema.define(version: 2020_08_06_073606) do
+ActiveRecord::Schema.define(version: 2020_08_07_052928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +17,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_073606) do
     t.integer "grade"
     t.integer "subject"
     t.text "unit"
-    t.integer "views_count"
+    t.integer "views_count", default: 0, null: false
     t.text "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
