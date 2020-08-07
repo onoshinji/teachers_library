@@ -1,11 +1,6 @@
 <h4>投稿一覧</h4>
 <% @posts.each do |post| %>
-  <p><%= image_tag post.image.url %></p>
-  <%= link_to '詳細', post_path(post.id),class: 'btn btn-primary'%>
-  <% if current_user == post.user %>
-  <%= link_to "編集", edit_post_path(post.id), data: { confirm: '本当に編集していいですか？' } %>
-  <%= link_to '削除', post_path(post.id),data: { confirm: '本当に削除していいですか？' }, method: :delete,class: 'btn btn-danger' %>
-  <% end %>
+  <%= link_to image_tag(post.image.url), post_path(post.id) %>
 <% end %>
 <br>
 <%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary' %>
