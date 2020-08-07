@@ -3,6 +3,7 @@
   <p class="alert"><%= alert %></p>
   <p>タイトル: <%= @post.title %></p>
   <p>内容: <%= @post.content %></p>
+  <p>閲覧数: <%= @post.views_count %></p>
   <p><%= image_tag @post.image.url %></p>
   <div id ="margin">
     <% unless @post.user_id == current_user.id %>

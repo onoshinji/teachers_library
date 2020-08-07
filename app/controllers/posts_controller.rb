@@ -36,6 +36,8 @@ class PostsController < ApplicationController
 
   def show
     @favorite = current_user.favorites.find_by(post_id: @post.id)
+    @post.views_count += 1
+    @post.save
   end
 
   def destroy
