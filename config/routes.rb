@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: "posts#index"
+  get :about, to: 'posts#about'
   get :worksheet, to: 'posts#worksheets'
   get :findings, to: 'posts#Findings'
   get :plan, to: 'posts#plans'

@@ -56,7 +56,8 @@ class PostsController < ApplicationController
                                  :url,
                                 )
   end
-
+  def about
+  end
   def worksheets
   end
 

@@ -11,24 +11,24 @@
 <% end %>
 <div id = "form">
   <div class="row">
-    <div class="text-center">
-      <%= form.label :title %>
+    <div class="col-9">
+      <%= form.label :表題 %>
       <%= form.text_field :title %>
     </div>
     <br>
-    <div class="text-center">
-      <%= form.label :content %>
+    <div class="col-9">
+      <%= form.label :説明 %>
       <%= form.text_field :content %>
     </div>
     <br>
-    <div class="text-center">
-      <%= form.label :image %>
+    <div class="col-9">
+      <%= form.label :画像 %>
       <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
       <%= form.file_field :image %>
       <%= form.hidden_field :image_cache %>
     </div>
     <br>
-    <div class="text-center">
+    <div class="col-9">
       <%= form.submit value = "投稿する"%>
     </div>
     <br>
