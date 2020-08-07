@@ -1,9 +1,4 @@
 class FavoritesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  def index
-    @favorite = current_user.favorites
-  end
-
   def create
     favorite = current_user.favorites.create(post_id: params[:post_id])
     redirect_to posts_url, notice: "#{favorite.post.user.name}さんのブログをお気に入り登録しました"

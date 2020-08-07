@@ -39,9 +39,17 @@
     <%= f.submit t('.update') %>
   </div>
 <% end %>
+<%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
+<% current_user.favorites.each do |favorite| %>
+<%= image_tag favorite.post.image.url %>
+<br>
+<%= "#{favorite.post.user.name}さんの投稿" %>
+<% end %>
 
 <h3><%= t('.cancel_my_account') %></h3>
-
 <p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>
 
 <%= link_to t('devise.shared.links.back'), :back %>
+<button type="button" class="btn btn-default col-2">
+  <%= link_to "投稿一覧画面にもどる", posts_path %>
+</button>
