@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :login_user
+  before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   def index
     @posts = Post.all
@@ -10,8 +11,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @user = current_user
-    @post = @user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
     if params[:back]
       render :new
     else
@@ -34,9 +34,7 @@ class PostsController < ApplicationController
       render :edit
     end
   end
-  # 「今ログインしているユーザーが、そのブログをお気に入り登録しているかどうか」を判断するための処理をしています。
-  # find_by(blog_id: @blog.id) で、その全抽出したFavoriteのレコードの中に、このブログのidが存在していれば（このブログがお気に入りに登録されていれば）、そのFavoriteのレコード（user_idとblog_id）を@favoriteに代入します。
-  # このブログのidが存在しなければ（このブログがお気に入りに登録されていなければ）、@favoriteにnilを代入します（find_byメソッドは、条件に一致するものがない場合には、nilを返します）。
+
   def show
     @favorite = current_user.favorites.find_by(post_id: @post.id)
   end
@@ -66,7 +64,10 @@ class PostsController < ApplicationController
 
   def plans
   end
+
+  private
   def set_post
     @post = Post.find(params[:id])
   end
+
 end
