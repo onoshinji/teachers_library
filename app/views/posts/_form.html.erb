@@ -1,40 +1,48 @@
-<%= form_with(model: @post, local: true ) do |form| %>
-<% if @post.errors.any? %>
-<div id="error_explanation">
-  <h2><%= @post.errors.count %>件のエラーがあります。</h2>
-  <ul>
-    <% @post.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-<div id = "form">
+<div class="row">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
   <div class="row">
-    <div class="col-9">
-      <%= form.label :表題 %>
-      <%= form.text_field :title %>
+    <div class="col-2">
+      <div class="sidebar_fixed">
+        <%= form_with(model: @post, local: true ) do |form| %>
+        <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @post.errors.count %>件のエラーがあります。</h2>
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+          <%= form.label :表題 %>
+          <%= form.text_field :title %>
+          <%= form.label :説明 %>
+          <%= form.text_field :content %>
+          <div>
+          <%= form.label :学年%>
+          <%= form.select :grade, Post.grades.keys, include_blank: true %>
+          </div>
+          <div>
+          <%= form.label :教科 %>
+          <%= form.select :subject, Post.subjects.keys, include_blank: true %>
+          </div>
+          <%= form.label :単元 %>
+          <%= form.text_field :unit%>
+          <%= form.label :ファイル %>
+          <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
+          <%= form.file_field :image %>
+          <%= form.hidden_field :image_cache %>
+          <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
+          <div class="actions">
+          <%= form.submit value = "投稿する"%>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-9">
+        <div class="main_contents">
+          <%= yield %>
+        </div>
+      </div>
     </div>
-    <br>
-    <div class="col-9">
-      <%= form.label :説明 %>
-      <%= form.text_field :content %>
-    </div>
-    <br>
-    <div class="col-9">
-      <%= form.label :画像 %>
-      <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
-      <%= form.file_field :image %>
-      <%= form.hidden_field :image_cache %>
-    </div>
-    <br>
-    <div class="col-9">
-      <%= form.submit value = "投稿する"%>
-    </div>
-    <br>
   </div>
-</div>
-<% end %>
-<button type="button" class="text-center">
-  <%= link_to "投稿一覧画面にもどる", posts_path %>
-</button>

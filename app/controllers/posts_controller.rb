@@ -10,6 +10,7 @@ class PostsController < ApplicationController
   end
 
   def create
+    
     @post = current_user.posts.build(post_params)
     if params[:back]
       render :new
@@ -50,7 +51,8 @@ class PostsController < ApplicationController
                                  :content,
                                  :image,
                                  :image_cache,
-                                 :grade,:subject,
+                                 :grade,
+                                 :subject,
                                  :unit,
                                  :views_count,
                                  :url,

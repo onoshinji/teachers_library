@@ -23,21 +23,6 @@
   </div>
 </header>
 <body>
-  <div class="row">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <div class="row">
-      <div class="col-2 offset-1">
-        <div class="sidebar_fixed">
-          ドロップダウンリスト
-        </div>
-      </div>
-      <div class="col-9">
-        <div class="main_contents">
-          <%= yield %>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= yield %>
 </body>
 </html>
