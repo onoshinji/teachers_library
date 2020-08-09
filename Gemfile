@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
+gem 'rails_admin', '~> 2.0' #管理者画面作成
+gem 'cancancan'
 gem 'devise'
 gem 'devise-i18n'
 gem 'carrierwave'
