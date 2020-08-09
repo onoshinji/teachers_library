@@ -1,8 +1,10 @@
-class ImageUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
+class ExcelAndWordUploader < CarrierWave::Uploader::Base
+  # include CarrierWave::MiniMagick
   storage :file
   # storage :fog
-  process :resize_to_limit => [1024,768]
+
+  # Override the directory where uploaded files will be stored.
+  # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -22,12 +24,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  version :thumb do
-    process resize_to_fit: [300, 300]
-  end
-
+  # Create different versions of your uploaded files:
+  # version :thumb do
+  #   process resize_to_fit: [50, 50]
+  # end
   def extension_whitelist
-    %w(jpg jpeg gif png )
+    %w(doc docx csv xls xlsm )
   end
 
   # Override the filename of the uploaded files:
