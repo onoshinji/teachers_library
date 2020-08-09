@@ -21,6 +21,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
+  version :user_thumb do
+    process resize_to_fit: [40, 40]
+  end
 
   version :thumb do
     process resize_to_fit: [300, 300]

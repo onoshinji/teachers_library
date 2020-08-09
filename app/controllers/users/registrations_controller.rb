@@ -7,9 +7,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
   #
-  # def create
-  #   super
-  # end
+  def create
+    super
+    @user.image = "user.png"
+  end
 
   def edit
     super
