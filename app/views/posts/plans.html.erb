@@ -1,0 +1,29 @@
+<%= form_with url: plans_path, method: :get, local: true do |form| %>
+<div class="grade_search">
+  <%= form.label :学年 %>
+  <%= form.select :grade_search, Post.grades.keys, selected: 1 %>
+</div>
+<div class="subject_search">
+<%= form.label :教科 %>
+<%= form.select :subject_search, Post.subjects.keys, include_blank: "指定しない" %>
+</div>
+<div class="unit_search">
+  <%= form.label :単元 %>
+  <%= form.text_field :unit_search %>
+</div>
+  <%= form.submit '検索する', name: nil %>
+<% end %>
+<%= form_with url: plans_path, method: :get, local: true do |form| %>
+  <%= form.select("tag_id", Tag.pluck(:name, :id), { include_blank: true }) %>
+  <%= form.submit 'タグ検索', name: nil %>
+<% end %>
+
+<h4>指導案検索</h4>
+<p id="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<% @posts.each do |post| %>
+  <p><%= post.grade %><%= post.subject %><%= post.unit %></p>
+  <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
+<% end %>
+<br>
+<%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary' %>

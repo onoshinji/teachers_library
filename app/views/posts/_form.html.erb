@@ -21,14 +21,16 @@
           <%= form.text_field :content %>
           <div>
           <%= form.label :学年%>
-          <%= form.select :grade, Post.grades.keys, include_blank: true %>
+          <%= form.select :grade, Post.grades.keys, selected: 1 %>
           </div>
           <div>
           <%= form.label :教科 %>
-          <%= form.select :subject, Post.subjects.keys, include_blank: true %>
+          <%= form.select :subject, Post.subjects.keys, selected: 1 %>
           </div>
           <%= form.label :単元 %>
           <%= form.text_field :unit%>
+          <%= form.label :種類 %>
+          <%= form.select :kind, Post.kinds.keys,  selected: 1 %>
           <%= form.label :ファイル %>
           <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
           <%= form.file_field :image %>

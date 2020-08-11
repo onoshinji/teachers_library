@@ -47,25 +47,45 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title,
-                                 :content,
-                                 :image,
-                                 :image_cache,
-                                 :grade,
-                                 :subject,
-                                 :unit,
-                                 :views_count,
-                                 :url,
-                                )
+      :content,
+      :image,
+      :image_cache,
+      :grade,
+      :subject,
+      :unit,
+      :views_count,
+      :url,
+      :kind,
+      { tag_ids: [] }
+    )
   end
   def about
   end
+
   def worksheets
+    @posts = Post.where(kind: 'ワークシート')
   end
 
   def findings
+    @posts = Post.where(kind: '所見例')
   end
 
   def plans
+    @posts = Post.all
+    # @posts = Post.where(kind: '指導案')
+    # 検索機能
+    if params[:grade_search].present?
+      @posts = @posts.grade_search(params[:grade_search])
+      if params[:subject_search].present? && params[:unit_search].present?
+        @posts = @posts.subject_search(params[:subject_search]).unit_search(params[:unit_search])
+      elsif params[:subject_search].present?
+        @posts = @posts.subject_search(params[:subject_search])
+      elsif params[:unit_search].present?
+        @posts = @posts.unit_search(params[:unit_search])
+      end
+    end
+    # タグ検索
+    @posts = @posts.joins(:tags).where(tags: { id: params[:tag_id] }) if params[:tag_id].present?
   end
 
   private

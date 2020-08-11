@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: "posts#index"
   get :about, to: 'posts#about'
-  get :worksheet, to: 'posts#worksheets'
-  get :findings, to: 'posts#Findings'
-  get :plan, to: 'posts#plans'
+  get :worksheets, to: 'posts#worksheets'
+  get :findings, to: 'posts#findings'
+  get :plans, to: 'posts#plans'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }

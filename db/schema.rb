@@ -1,5 +1,5 @@
 
-ActiveRecord::Schema.define(version: 2020_08_08_074629) do
+ActiveRecord::Schema.define(version: 2020_08_11_083554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_074629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.integer "kind", default: 0, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
