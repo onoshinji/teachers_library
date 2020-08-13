@@ -18,6 +18,8 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :user
   # いいね機能
+
+  
   mount_uploader :image, ImageUploader
   # enum集
   enum grade: { １年生: 1, ２年生: 2, ３年生: 3, ４年生: 4, ５年生: 5, ６年生: 6, 特別支援: 7,}

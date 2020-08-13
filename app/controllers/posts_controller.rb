@@ -47,17 +47,16 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title,
-      :content,
-      :image,
-      :image_cache,
-      :grade,
-      :subject,
-      :unit,
-      :views_count,
-      :url,
-      :kind,
-      { tag_ids: [] }
-    )
+                                 :content,
+                                 :image,
+                                 :image_cache,
+                                 :grade,
+                                 :subject,
+                                 :unit,
+                                 :views_count,
+                                 :url,:kind,
+                                 { tag_ids: [] }
+                                )
   end
   def about
   end
