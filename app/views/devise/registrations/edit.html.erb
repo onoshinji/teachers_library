@@ -4,7 +4,6 @@
   <%= render "devise/shared/error_messages", resource: resource %>
   <div class="field">
   <%= image_tag(current_user.image.url(:thumb)) if current_user.image && current_user.image.url %>
-
   <p><%= f.file_field :image %></p>
   </div>
   <div class="field">
@@ -18,7 +17,6 @@
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
   <% end %>
-
   <div class="field">
     <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
@@ -42,17 +40,44 @@
     <%= f.submit t('.update') %>
   </div>
 <% end %>
-<%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
-<% current_user.favorites.each do |favorite| %>
-<%= image_tag favorite.post.image.url %>
-<br>
-<%= "#{favorite.post.user.name}さんの投稿" %>
-<% end %>
+<%# ここからメインコンテンツ表示用。お気に入り一覧と自身の投稿内容をタブ切替で表示する %>
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active" role="presentation">
+      <a aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab">お気に入り</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="tab_b" data-toggle="tab" href="#tab_b" role="tab">自分の投稿</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_a" role="tabpanel">
+      <p>お気に入り一覧</p>
+      <%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
+      <% current_user.favorites.each do |favorite| %>
+      <%= image_tag favorite.post.image.url %>
+      <br>
+      <%= "#{favorite.post.user.name}さんの投稿" %>
+      <% end %>
+    </div>
+    <div class="tab-pane" id="tab_b" role="tabpanel">
+      <p>自分の投稿一覧</p>
+      <!-- deviseで@postsを取得できていない -->
+      <% current_user.posts.each do |post| %>
+      <p>タイトル: <%= post.title %></p>
+      <p>内容: <%= post.content %></p>
+      <p>閲覧数: <%= post.views_count %></p>
+      <p><%= image_tag post.image.url %></p>
+      <% end %>
+      <div class= 'btn btn-primary'>
+    </div>
+  </div>
+</div>
 
 <h3><%= t('.cancel_my_account') %></h3>
 <p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>
 
 <%= link_to t('devise.shared.links.back'), :back %>
-<button type="button" class="btn btn-default col-2">
+<button type="button" class="btn btn-primary ">
   <%= link_to "投稿一覧画面にもどる", posts_path %>
 </button>

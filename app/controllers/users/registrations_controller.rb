@@ -14,7 +14,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def edit
     super
-    @posts = current_user.posts
   end
   #
   # def update

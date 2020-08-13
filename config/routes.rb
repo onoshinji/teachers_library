@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   get :worksheets, to: 'posts#worksheets'
   get :findings, to: 'posts#findings'
   get :plans, to: 'posts#plans'
+  # デバイスルーティング
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+
   resources :favorites, only: [:new, :index, :create, :destroy]
   resources :posts
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
