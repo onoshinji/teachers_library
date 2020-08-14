@@ -2,13 +2,13 @@
   <p class="alert"><%= alert %></p>
   <p>タイトル: <%= @post.title %></p>
   <p>内容: <%= @post.content %></p>
-  <p>閲覧数: <%= @post.views_count %></p>
-  <p><%= image_tag @post.image.url %></p>
-  <div class= 'btn btn-primary'>
+  <span>閲覧数: <%= @post.views_count %></span>
+  <span class= 'btn btn-primary'>
   <% @post.tags.each do |tag| %>
     <%= tag.name %>
   <% end %>
-  </div>
+  </span>
+  <p><%= image_tag @post.image.url %></p>
   <p><%= "ファイルの種類:#{@post.kind}" %></p>
   <div id ="margin">
     <% unless @post.user_id == current_user.id %>
@@ -21,7 +21,6 @@
   </div>
   <%= link_to '新しく投稿する', new_post_path %>
 <div id ="margin">
-  <%= link_to '投稿一覧', posts_path %>
   <%= link_to "投稿を編集する", edit_post_path(@post.id), data: { confirm: '本当に編集していいですか？' } %>
   <%= link_to '投稿を削除する', post_path(@post.id),data: { confirm: '本当に削除していいですか？' }, method: :delete %>
 </div>
