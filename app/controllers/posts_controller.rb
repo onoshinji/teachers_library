@@ -62,22 +62,23 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    @posts = Post.where(kind: 'ワークシート')
+    @posts = Post.where(kind: 'ワークシート').order(id: "DESC")
     main_search
     tag_search
   end
 
   def findings
-    @posts = Post.where(kind: '所見例')
+    @posts = Post.where(kind: '所見例').order(id: "DESC")
     main_search
     tag_search
   end
 
   def plans
-    @posts = Post.all
+    @posts = Post.all.order(id: "DESC")
     # @posts = Post.where(kind: '指導案')
     main_search
     tag_search
+    sort
   end
 
   private
@@ -101,5 +102,15 @@ class PostsController < ApplicationController
   # タグ検索機能
   def tag_search
     @posts = @posts.joins(:tags).where(tags: { id: params[:tag_id] }) if params[:tag_id].present?
+  end
+  # ソート機能
+  def sort
+    if params[:view].present?
+      if params[:view] == 'new_arrival'
+        @posts = @posts.order(created_at: :DESC)
+      elsif params[:view] == 'view'
+        @posts = @posts.order(views_count: :DESC)
+      end
+    end
   end
 end
