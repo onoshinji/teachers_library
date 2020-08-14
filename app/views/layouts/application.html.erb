@@ -8,23 +8,30 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <header>
-  <div class="text-left header_text">
-    <span><%= link_to "Home", posts_path %></span>
-    <span><%= link_to "About", about_path %></span>
-    <% if user_signed_in? %>
-      <%= "ログイン中: #{current_user.name}さん" %>
-      <% if current_user.image.url.present? %>
-        <%= link_to image_tag(current_user.image.url(:user_thumb)), edit_user_registration_path(current_user.id) %>
-      <% else %>
-        <%= link_to image_tag("user.png"), edit_user_registration_path(current_user.id) %>
-      <% end %>
-      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-    <% else %>
-    <%= "あなたは今ログインしていません" %>
-    <%= link_to "新規登録", new_user_registration_path %>
-    <%= link_to "ログイン", new_user_session_path %>
-    <% end %>
-  </div>
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+        <span><%= link_to "Home", posts_path %></span>
+        <span><%= link_to "About", about_path %></span></a>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+          <div class="text-left header_text">
+            <% if user_signed_in? %>
+              <%= "ログイン中: #{current_user.name}さん" %>
+              <% if current_user.image.url.present? %>
+                <%= link_to image_tag(current_user.image.url(:user_thumb)), edit_user_registration_path(current_user.id) %>
+              <% else %>
+                <%= link_to image_tag("user.png"), edit_user_registration_path(current_user.id) %>
+              <% end %>
+              <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+            <% else %>
+            <%= "あなたは今ログインしていません" %>
+            <%= link_to "新規登録", new_user_registration_path %>
+            <%= link_to "ログイン", new_user_session_path %>
+            <% end %>
+          </div>
+      </li>
+    </ul>
+  </nav>
 </header>
 <body>
   <%= yield %>

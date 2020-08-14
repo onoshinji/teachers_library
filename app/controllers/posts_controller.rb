@@ -63,16 +63,29 @@ class PostsController < ApplicationController
 
   def worksheets
     @posts = Post.where(kind: 'ワークシート')
+    main_search
+    tag_search
   end
 
   def findings
     @posts = Post.where(kind: '所見例')
+    main_search
+    tag_search
   end
 
   def plans
     @posts = Post.all
     # @posts = Post.where(kind: '指導案')
+    main_search
+    tag_search
+  end
+
+  private
+  def set_post
+    @post = Post.find(params[:id])
+  end
     # 検索機能
+  def main_search
     if params[:grade_search].present?
       @posts = @posts.grade_search(params[:grade_search])
       if params[:subject_search].present? && params[:unit_search].present?
@@ -83,13 +96,10 @@ class PostsController < ApplicationController
         @posts = @posts.unit_search(params[:unit_search])
       end
     end
-    # タグ検索
+  end
+
+  # タグ検索機能
+  def tag_search
     @posts = @posts.joins(:tags).where(tags: { id: params[:tag_id] }) if params[:tag_id].present?
   end
-
-  private
-  def set_post
-    @post = Post.find(params[:id])
-  end
-
 end
