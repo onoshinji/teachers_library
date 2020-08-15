@@ -54,7 +54,9 @@ class PostsController < ApplicationController
                                  :subject,
                                  :unit,
                                  :views_count,
-                                 :url,:kind,
+                                 :url,
+                                 :kind,
+                                 :ms_office,
                                  { tag_ids: [] }
                                 )
   end

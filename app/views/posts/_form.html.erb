@@ -31,10 +31,16 @@
           <%= form.text_field :unit%>
           <%= form.label :種類 %>
           <%= form.select :kind, Post.kinds.keys,  selected: 1 %>
-          <%= form.label :ファイル %>
+          <div>
+          <%= form.label :画像 %>
           <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
           <%= form.file_field :image %>
           <%= form.hidden_field :image_cache %>
+          </div>
+          <div>
+          <%= form.label :wordexcelはこちら %>
+          <%= form.file_field :ms_office %>
+          </div>
           <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
           <div class="actions">
           <%= form.submit value = "投稿する"%>
