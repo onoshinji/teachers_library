@@ -62,19 +62,19 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    @posts = Post.where(kind: 'ワークシート').order(id: "DESC")
+    @posts = Post.where(kind: 'ワークシート')
     main_search
     tag_search
   end
 
   def findings
-    @posts = Post.where(kind: '所見例').order(id: "DESC")
+    @posts = Post.where(kind: '所見例')
     main_search
     tag_search
   end
 
   def plans
-    @posts = Post.all.order(id: "DESC")
+    @posts = Post.all #ここでは、テストのために、Post.allを仮で入れている。実装では下記の表記になおす
     # @posts = Post.where(kind: '指導案')
     main_search
     tag_search
@@ -105,10 +105,10 @@ class PostsController < ApplicationController
   end
   # ソート機能
   def sort
-    if params[:view].present?
-      if params[:view] == 'new_arrival'
+    if params[:sort].present?
+      if params[:sort] == 'new_arrival'
         @posts = @posts.order(created_at: :DESC)
-      elsif params[:view] == 'view'
+      elsif params[:sort] == 'view'
         @posts = @posts.order(views_count: :DESC)
       end
     end
