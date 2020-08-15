@@ -56,7 +56,6 @@
         <p id="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
           <% @posts.each do |post| %>
-
             <p><span><%= "No. #{post.id}" %></span>
             <%= post.grade %><%= post.subject %><%= post.unit %>
             <span><%= "#{post.views_count}回 " %></span></p>
