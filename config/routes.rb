@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
+  end
   resources :favorites, only: [:new, :index, :create, :destroy]
   resources :posts
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
