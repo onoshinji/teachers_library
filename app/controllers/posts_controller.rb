@@ -67,12 +67,14 @@ class PostsController < ApplicationController
     @posts = Post.where(kind: 'ワークシート')
     main_search
     tag_search
+    sort
   end
 
   def findings
     @posts = Post.where(kind: '所見例')
     main_search
     tag_search
+    sort
   end
 
   def plans

@@ -53,7 +53,7 @@
       <p>お気に入り一覧</p>
       <%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
       <% current_user.favorites.each do |favorite| %>
-      <%= image_tag favorite.post.image.url %>
+      <%= image_tag favorite.post.image.url(:thumb)%>
       <br>
       <%= "#{favorite.post.user.name}さんの投稿" %>
       <% end %>
