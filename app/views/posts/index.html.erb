@@ -1,21 +1,71 @@
+<main role="main">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>先生の図書館とは</h1>
+      <p class="lead text-muted">学校現場で求められることが非常に多くなっており先生たちは日々残業が多いのが実情です。
+        一人一人の教員が日頃作成したワークシートや、指導案を持ち寄り、
+        全国の小学校教員の作成したものを共有することで、残業時間を減らすことを目的としています。</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      </p>
+    </div>
+  </section>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <p id="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-            <% @posts.each do |post| %>
-              <p><%= post.grade %><%= post.subject %><%= post.unit %></p>
-              <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
-            <% end %>
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            {% include icons/placeholder.svg width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top" text="Thumbnail" %}
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            <!-- ソートボタン配置 -->
-            ソートボタン
-          </button>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            {% include icons/placeholder.svg width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top" text="Thumbnail" %}
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            {% include icons/placeholder.svg width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top" text="Thumbnail" %}
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-    </main>
+    </div>
+  </div>
+</main>
