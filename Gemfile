@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
 gem 'kaminari'
 gem 'rails_admin', '~> 2.0' #管理者画面作成
 gem 'cancancan'
