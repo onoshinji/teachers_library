@@ -2,11 +2,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-<<<<<<< HEAD
-  #
-=======
   before_action :check_guest, only: %i[update destroy]
->>>>>>> a40f89d0b44a50a10fffd817e7a71fc9d38d4f18
+
   def new
     super
   end
@@ -22,12 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     super
   end
-<<<<<<< HEAD
-  #
-  def destroy
-    super
-=======
-  #
+
   def destroy
     super
   end
@@ -43,19 +35,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
->>>>>>> a40f89d0b44a50a10fffd817e7a71fc9d38d4f18
   end
-  #
-  def cancel
-    super
-  end
-  #
-<<<<<<< HEAD
-  protected
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  end
-  #
 
   def after_sign_up_path_for(resource)
     super(resource)
@@ -63,19 +43,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_inactive_sign_up_path_for(resource)
     super(resource)
-=======
-  def after_sign_up_path_for(resource)
-    super(resource)
   end
-  #
-  def after_inactive_sign_up_path_for(resource)
-    super(resource)
-  end
-
+  
   def check_guest
     if resource.email == 'guest@example.com'
       redirect_to root_path, alert: 'ゲストユーザーは変更・削除できません。'
     end
->>>>>>> a40f89d0b44a50a10fffd817e7a71fc9d38d4f18
   end
 end
