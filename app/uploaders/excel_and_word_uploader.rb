@@ -1,5 +1,5 @@
 class ExcelAndWordUploader < CarrierWave::Uploader::Base
-  storage :file
+  storage :fog
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
