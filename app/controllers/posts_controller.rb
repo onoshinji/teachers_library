@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
-  before_action :login_user
+  before_action :login_user, only:  [:new, :create, :edit, :update, :show,
+                                    :destroy, :worksheets, :findings, :plans, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   def index
-    @posts = Post.all
   end
 
   def new
@@ -45,47 +45,52 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: "投稿を削除しました"
   end
 
-  def post_params
-    params.require(:post).permit(:title,
-                                 :content,
-                                 :image,
-                                 :image_cache,
-                                 :grade,
-                                 :subject,
-                                 :unit,
-                                 :views_count,
-                                 :url,:kind,
-                                 { tag_ids: [] }
-                                )
-  end
-  def about
-  end
-
   def worksheets
-    @posts = Post.where(kind: 'ワークシート')
-    main_search
-    tag_search
-  end
-
-  def findings
-    @posts = Post.where(kind: '所見例')
-    main_search
-    tag_search
-  end
-
-  def plans
-    @posts = Post.all #ここでは、テストのために、Post.allを仮で入れている。実装では下記の表記になおす
-    # @posts = Post.where(kind: '指導案')
+    @posts = Post.where(kind: 'ワークシート').page(params[:page]).per(5)
     main_search
     tag_search
     sort
   end
 
+  def findings
+    @posts = Post.where(kind: '所見例').page(params[:page]).per(5)
+    main_search
+    tag_search
+    sort
+  end
+
+  def plans
+    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れている。実装では下記の表記になおす
+    # @posts = Post.where(kind: '指導案')
+    main_search
+    tag_search
+    sort
+  end
+  def about
+  end
+
+
   private
   def set_post
     @post = Post.find(params[:id])
   end
-    # 検索機能
+
+  def post_params
+    params.require(:post).permit(:title,
+      :content,
+      :image,
+      :image_cache,
+      :grade,
+      :subject,
+      :unit,
+      :views_count,
+      :url,
+      :kind,
+      :ms_office,
+      { tag_ids: [] }
+    )
+  end
+  # 検索機能
   def main_search
     if params[:grade_search].present?
       @posts = @posts.grade_search(params[:grade_search])

@@ -1,4 +1,3 @@
-<h4>所見例</h4>
 <div class="container-fluid">
   <div class="row">
 <!-- 画面左側サイドバー -->
@@ -6,12 +5,11 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">
               <span data-feather="home"></span>
-              ファイル検索 <span class="sr-only">(current)</span>
-            </a>
+              所見例検索 <span class="sr-only">(current)</span>
             <%= form_with url: findings_path, method: :get, local: true do |form| %>
             <div class="grade_search">
+            <span data-feather="file"></span>
               <%= form.label :学年 %>
               <%= form.select :grade_search, Post.grades.keys, selected: 1 %>
             </div>
@@ -44,21 +42,27 @@
     <!-- 画面右側に表示されるコンテンツ -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
+        <h4>所見例</h4>
           <div class="btn-group mr-2">
-            <p id="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-              <% @posts.each do |post| %>
-                <object><%= post.grade %><%= post.subject %><%= post.unit %></object>
-                <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
-              <% end %>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <!-- ソートボタン配置 -->
-            ソートボタン
-          </button>
+            <%= form_with  url: findings_path, method: :get, local: true do |form| %>
+              <%= form.select :sort,{'新着順': 'new_arrival', '閲覧数順': 'view',},
+                                    { include_blank: '',},
+                                    { id: 'sort' , required: true } %>
+              <%= form.submit '並び替え'%>
+            <% end %>
       </div>
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        <p id="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+          <% @posts.each do |post| %>
+
+            <p><span><%= "No. #{post.id}" %></span>
+            <%= post.grade %><%= post.subject %><%= post.unit %>
+            <span>閲覧数: <%= post.views_count %></span>
+          <span>お気に入り件数<%= post.favorites.count %></span></p>
+            <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
+          <% end %>
+          <p><%= paginate @posts %></p>
     </main>
   </div>
 </div>

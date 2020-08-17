@@ -1,4 +1,7 @@
-class ExcelAndWordUploader < CarrierWave::Uploader::Base
+class UserUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+
+  # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
 
@@ -22,15 +25,22 @@ class ExcelAndWordUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
-  def extension_whitelist
-    %w(doc docx csv xls xlsm pdf)
+  version :user_thumb do
+    process resize_to_fit: [40, 40]
+  end
+  version :thumb do
+    process resize_to_fit: [240, 180]
   end
 
+  # Add a white list of extensions which are allowed to be uploaded.
+  # For images you might use something like this:
+  def extension_whitelist
+    %w(jpg jpeg gif png)
+  end
+
+  def default_url(*args)
+    "user.jpg"
+  end
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
