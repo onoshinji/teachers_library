@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
+gem 'unicorn' # アプリケーションサーバのunicorn
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
 gem 'kaminari'
@@ -24,7 +25,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dotenv-rails'
-gem 'unicorn' # アプリケーションサーバのunicorn
+
 
 group :development, :test do
   gem 'capistrano', '3.6.0' # capistranoのツール一式
