@@ -1,5 +1,5 @@
 
-ActiveRecord::Schema.define(version: 2020_08_11_083554) do
+ActiveRecord::Schema.define(version: 2020_08_15_045853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_083554) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
-    t.text "image", null: false
+    t.text "image"
     t.integer "grade", default: 0, null: false
     t.integer "subject", default: 0, null: false
     t.text "unit", null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_083554) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.integer "kind", default: 0, null: false
+    t.text "ms_office"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

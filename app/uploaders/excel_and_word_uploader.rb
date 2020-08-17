@@ -1,5 +1,4 @@
 class ExcelAndWordUploader < CarrierWave::Uploader::Base
-  # include CarrierWave::MiniMagick
   storage :file
   # storage :fog
 
@@ -29,7 +28,7 @@ class ExcelAndWordUploader < CarrierWave::Uploader::Base
   #   process resize_to_fit: [50, 50]
   # end
   def extension_whitelist
-    %w(doc docx csv xls xlsm )
+    %w(doc docx csv xls xlsm pdf)
   end
 
   # Override the filename of the uploaded files:

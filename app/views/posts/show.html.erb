@@ -3,6 +3,7 @@
   <p>タイトル: <%= @post.title %></p>
   <p>内容: <%= @post.content %></p>
   <span>閲覧数: <%= @post.views_count %></span>
+  <span>お気に入り件数<%= @post.favorites.count %></span>
   <span class= 'btn btn-primary'>
   <% @post.tags.each do |tag| %>
     <%= tag.name %>

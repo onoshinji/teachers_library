@@ -1,3 +1,5 @@
+<div class ="row">
+  <div class = "col-4">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <div class="field">
@@ -37,15 +39,19 @@
   <div class="actions">
     <%= f.submit t('.update') %>
   </div>
+
+  <p><%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>
+  <%= link_to t('devise.shared.links.back'), :back %>
 <% end %>
+</div>
 <%# ここからメインコンテンツ表示用。お気に入り一覧と自身の投稿内容をタブ切替で表示する %>
 <div>
   <ul class="nav nav-tabs" role="tablist">
     <li class="active" role="presentation">
-      <a aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab">お気に入り</a>
+      <a aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab" class="btn btn-sm btn-outline-secondary">お気に入り</a>
     </li>
     <li role="presentation">
-      <a aria-controls="tab_b" data-toggle="tab" href="#tab_b" role="tab">自分の投稿</a>
+      <a aria-controls="tab_b" data-toggle="tab" href="#tab_b" role="tab" class="btn btn-sm btn-outline-secondary">自分の投稿</a>
     </li>
   </ul>
   <div class="tab-content">
@@ -53,7 +59,7 @@
       <p>お気に入り一覧</p>
       <%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
       <% current_user.favorites.each do |favorite| %>
-      <%= image_tag favorite.post.image.url %>
+      <%= image_tag favorite.post.image.url(:thumb)%>
       <br>
       <%= "#{favorite.post.user.name}さんの投稿" %>
       <% end %>
@@ -66,8 +72,4 @@
       <% end %>
   </div>
 </div>
-
-<h3><%= t('.cancel_my_account') %></h3>
-<p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>
-
-<%= link_to t('devise.shared.links.back'), :back %>
+</div>

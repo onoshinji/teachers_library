@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   validates :title,  presence: true, length: { maximum: 100 }
   validates :content, presence: true, length: { maximum: 2000 }
-  validates :image, presence: true
+  # validates :image, presence: true
   validates :grade, presence: true
   validates :subject, presence: true
   validates :unit, presence: true
@@ -19,7 +19,7 @@ class Post < ApplicationRecord
   has_many :favorite_users, through: :favorites, source: :user
   # いいね機能
 
-  
+  mount_uploader :ms_office, ExcelAndWordUploader
   mount_uploader :image, ImageUploader
   # enum集
   enum grade: { １年生: 1, ２年生: 2, ３年生: 3, ４年生: 4, ５年生: 5, ６年生: 6, 特別支援: 7,}
