@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
   resources :favorites, only: [:new, :index, :create, :destroy]
   resources :posts
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" 
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  
 
 end
