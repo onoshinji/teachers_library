@@ -69,6 +69,13 @@ class PostsController < ApplicationController
   def about
   end
 
+  # S3からのダウンロード
+  def download
+    @post = Post.find(params[:id)
+    data = open(URI.encode(@post.file_url))
+    send_data data.read, disposition: 'attachment',
+    filename: @post.file_name, type: @post.content_type
+  end
 
   private
   def set_post

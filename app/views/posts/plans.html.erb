@@ -59,7 +59,6 @@
             <%= post.grade %><%= post.subject %><%= post.unit %>
             <span>閲覧数: <%= post.views_count %></span>
           <span>お気に入り件数<%= post.favorites.count %></span></p>
-
             <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
           <% end %>
           <p><%= paginate @posts %></p>
