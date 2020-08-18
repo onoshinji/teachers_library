@@ -19,6 +19,20 @@ class Post < ApplicationRecord
   has_many :favorite_users, through: :favorites, source: :user
   # いいね機能
 
+  #ダウンロードに関連したメソッドの定義
+
+  def file_name
+    self.image.file.filename
+  end
+
+  def content_type
+    self.image.content_type
+  end
+
+  def file_url
+    "https://54.150.129.112#{self.file_name}"
+  end
+
   mount_uploader :ms_office, ExcelAndWordUploader
   mount_uploader :image, ImageUploader
   # enum集

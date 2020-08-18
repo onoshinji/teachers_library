@@ -11,6 +11,7 @@
   </span>
   <p><%= image_tag @post.image.url %></p>
   <p><%= "ファイルの種類:#{@post.kind}" %></p>
+  <%= link_to 'ダウンロード', download_post_path(@post), { method: :get } %>
   <div id ="margin">
     <% unless @post.user_id == current_user.id %>
       <% if @favorite.present? %>
