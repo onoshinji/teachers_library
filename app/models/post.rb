@@ -22,7 +22,7 @@ class Post < ApplicationRecord
   #ダウンロードに関連したメソッドの定義
 
   def file_name
-    self.image.file.filename
+    self.image.file
   end
 
   def content_type
