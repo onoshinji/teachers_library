@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :download]
   def index
   end
 
@@ -71,7 +71,6 @@ class PostsController < ApplicationController
 
   # S3からのダウンロード
   def download
-    @post = Post.find(params[:id)
     data = open(URI.encode(@post.file_url))
     send_data data.read, disposition: 'attachment',
     filename: @post.file_name, type: @post.content_type
