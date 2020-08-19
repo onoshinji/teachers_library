@@ -3,7 +3,7 @@ lock '3.6.0'
 set :application, 'teachers_library'
 set :repo_url, 'https://github.com/onoshinji/teachers_library.git'
 # deployするブランチ。デフォルトはmasterなのでなくても可。
-set :branch, ENV['BRANCH'] || 'step4'
+set :branch, ENV['BRANCH'] || 'master'
 # deploy先のディレクトリ。
 set :deploy_to, '/var/www/teachers_library'
 # シンボリックリンクをはるフォルダ・ファイル
