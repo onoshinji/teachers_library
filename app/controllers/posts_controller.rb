@@ -71,20 +71,8 @@ class PostsController < ApplicationController
 
   # S3からのダウンロード
   def download
-    region='ap-northeast-1'
-     bucket='teacher-production'
-     key= params[:file_name]
-     credentials=Aws::Credentials.new(
-           provider:              'AWS',
-           aws_access_key_id:     ENV["AWS_ACCESS_KEY_ID"],
-           aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
-           region:                'ap-northeast-1',
-           path_style:            true,
-     )
-     # send_dataのtypeはtypeで指定
-     client=Aws::S3::Client.new(region:region, credentials:credentials)
-     # data=client.get_object(bucket:bucket, key:key).body
-
+    @post = Post.find(download_params[:id])
+    
     data = open(URI.encode(@post.image.url))
     send_data data.read, disposition: 'attachment',
     filename: @post.file_name, type: @post.content_type
@@ -95,6 +83,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def download_params
+    params.permit(:id)
+  end
   def post_params
     params.require(:post).permit(:title,
       :content,
