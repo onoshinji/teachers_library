@@ -12,7 +12,7 @@
   <p><%= image_tag @post.image.url %></p>
     <%= @post.image.url %>
   <p><%= "ファイルの種類:#{@post.kind}" %></p>
-  <p><%= link_to 'ダウンロード', download_post_path(@post), data: { turbolinks: "false", confirm: 'ダウンロードしますか?' }%></p>
+  <p><%= link_to 'ダウンロード', download_post_path(@post) %></p>
   <div id ="margin">
     <% unless @post.user_id == current_user.id %>
       <% if @favorite.present? %>
