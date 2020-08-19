@@ -60,7 +60,7 @@ class PostsController < ApplicationController
   end
 
   def plans
-    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れている。実装では下記の表記になおす
+    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れてすべての種類のファイルを表示するようにしている。実装では下記の表記になおす
     # @posts = Post.where(kind: '指導案')
     main_search
     tag_search
@@ -71,7 +71,9 @@ class PostsController < ApplicationController
 
   # S3からのダウンロード
   def download
-    data = open(URI.encode(@post.file_url))
+    @post = Post.find(download_params[:id])
+    
+    data = open(URI.encode(@post.image.url))
     send_data data.read, disposition: 'attachment',
     filename: @post.file_name, type: @post.content_type
   end
@@ -81,6 +83,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def download_params
+    params.permit(:id)
+  end
   def post_params
     params.require(:post).permit(:title,
       :content,

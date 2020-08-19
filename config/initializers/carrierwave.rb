@@ -11,14 +11,14 @@ CarrierWave.configure do |config|
       region:                'ap-northeast-1',
       path_style:            true,
   }
-  config.fog_public     = true
-  config.fog_attributes = {'Cache-Control' => 'public, max-age=86400'}
+  config.fog_public     = true # 直リンクでのアクセスを許可する
+  config.fog_attributes = {'Cache-Control' => 'public, max-age=86400'} # キャッシュ保存する日時
   case Rails.env
     when 'production'
       config.fog_directory = 'teachers-production'
       config.asset_host = 'https://teachers-production.s3.amazonaws.com'
     when 'development'
       config.fog_directory = 'teachers-development'
-      config.asset_host = 'https://teachers-development.s3.amazonaws.com' 
+      config.asset_host = 'https://teachers-development.s3.amazonaws.com'
   end
 end
