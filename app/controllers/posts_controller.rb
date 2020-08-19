@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  require 'aws-sdk'
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :download]
@@ -71,9 +72,15 @@ class PostsController < ApplicationController
 
   # S3からのダウンロード
   def download
-    @post = Post.find(download_params[:id])
-    
-    data = open(URI.encode(@post.image.url))
+    bucket = 'teachers-production' # S3バケット名
+    key = "#{@post.filename}" #S3のファイル名
+    client = Aws::S3::Client.new(
+      access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+      secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+      region: 'ap-northeast-1'
+      )
+      data = client.get_object(:bucket => bucket, :key => key).body
+    # data = open(URI.encode(@post.image.url))
     send_data data.read, disposition: 'attachment',
     filename: @post.file_name, type: @post.content_type
   end
@@ -83,9 +90,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def download_params
-    params.permit(:id)
-  end
   def post_params
     params.require(:post).permit(:title,
       :content,
