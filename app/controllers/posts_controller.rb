@@ -60,7 +60,7 @@ class PostsController < ApplicationController
   end
 
   def plans
-    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れている。実装では下記の表記になおす
+    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れてすべての種類のファイルを表示するようにしている。実装では下記の表記になおす
     # @posts = Post.where(kind: '指導案')
     main_search
     tag_search
@@ -71,6 +71,20 @@ class PostsController < ApplicationController
 
   # S3からのダウンロード
   def download
+    region='ap-northeast-1'
+     bucket='teacher-production'
+     key= params[:file_name]
+     credentials=Aws::Credentials.new(
+           provider:              'AWS',
+           aws_access_key_id:     ENV["AWS_ACCESS_KEY_ID"],
+           aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+           region:                'ap-northeast-1',
+           path_style:            true,
+     )
+     # send_dataのtypeはtypeで指定
+     client=Aws::S3::Client.new(region:region, credentials:credentials)
+     # data=client.get_object(bucket:bucket, key:key).body
+
     data = open(URI.encode(@post.image.url))
     send_data data.read, disposition: 'attachment',
     filename: @post.file_name, type: @post.content_type
