@@ -10,7 +10,7 @@
   <% end %>
   </span>
   <p><%= image_tag @post.image.url %></p>
-    <%= @post.image.url %>
+  <%= URI.encode(@post.image.url) %>
   <p><%= "ファイルの種類:#{@post.kind}" %></p>
   <p><%= link_to 'ダウンロード', download_post_path(@post) %></p>
   <div id ="margin">
