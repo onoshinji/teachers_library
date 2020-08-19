@@ -71,7 +71,7 @@ class PostsController < ApplicationController
 
   # S3からのダウンロード
   def download
-    data = open(URI.encode(@post.file_url))
+    data = open(URI.encode(@post.image.url))
     send_data data.read, disposition: 'attachment',
     filename: @post.file_name, type: @post.content_type
   end
