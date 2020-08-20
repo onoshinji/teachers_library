@@ -1,15 +1,15 @@
 Rails.application.configure do
   # メール送信用の記述
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  :address => "smtp.gmail.com",
-  :port => 587,
-  :user_name => "yjsnpi555@gmail.com",
-  :password => "hcsiumxxrfgagypu",
-  :authentication => :plain,
-  :enable_starttls_auto => true
-  }
+  config.action_mailer.delivery_method = :letter_opener_web
+  # config.action_mailer.smtp_settings = {
+  # :address => "smtp.gmail.com",
+  # :port => 587,
+  # :user_name => "yjsnpi555@gmail.com",
+  # :password => "hcsiumxxrfgagypu",
+  # :authentication => :plain,
+  # :enable_starttls_auto => true
+  # }
   config.cache_classes = false
   config.eager_load = false
   config.consider_all_requests_local = true
