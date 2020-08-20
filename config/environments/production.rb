@@ -1,6 +1,6 @@
 Rails.application.configure do
   # メール送信用の記述
-  config.action_mailer.default_url_options = { host: 'http://54.150.129.112/' }
+  config.action_mailer.default_url_options = { host: 'http://http://18.177.214.34//' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   :address => "smtp.gmail.com",

@@ -1,5 +1,9 @@
 class ExcelAndWordUploader < CarrierWave::Uploader::Base
-  storage :fog
+  if Rails.env.development? || Rails.env.test?
+    storage :file
+  else
+    storage :fog
+  end
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -8,4 +12,7 @@ class ExcelAndWordUploader < CarrierWave::Uploader::Base
     %w(doc docx csv xls xlsm pdf)
   end
 
+  # def filename
+  #  "#{SecureRandom.uuid}.#{file.extension}" if original_filename.present?
+  # end
 end

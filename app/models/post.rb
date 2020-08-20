@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   validates :title,  presence: true, length: { maximum: 100 }
   validates :content, presence: true, length: { maximum: 2000 }
-  # validates :image, presence: true
+  # validates :image, presence: true, imageカラムが空の場合も想定されたため
   validates :grade, presence: true
   validates :subject, presence: true
   validates :unit, presence: true
@@ -19,20 +19,25 @@ class Post < ApplicationRecord
   has_many :favorite_users, through: :favorites, source: :user
   # いいね機能
 
-  #ダウンロードに関連したメソッドの定義
-
-  def file_name
+  #imageダウンロードに関連したメソッドの定義
+  # file_name => image_name
+  def image_name
     self.image.file
   end
-
-  def content_type
+  # content_type => image_type
+  def image_type
     self.image.content_type
   end
+  #######################
 
-  def file_url
-    "https://54.150.129.112#{self.file_name}"
+  #ms_officeダウンロードに関連したメソッドの定義
+  def file_name
+    self.ms_office.file
   end
-
+  def file_type
+    self.ms_office.content_type
+  end
+  #######################
   mount_uploader :ms_office, ExcelAndWordUploader
   mount_uploader :image, ImageUploader
   # enum集

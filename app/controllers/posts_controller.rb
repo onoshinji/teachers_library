@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   # require 'aws-sdk'
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
+  before_action :ensure_correct_user, only:[:edit,:destroy]
   def index
   end
 
@@ -36,6 +37,7 @@ class PostsController < ApplicationController
   end
 
   def show
+
     @favorite = current_user.favorites.find_by(post_id: @post.id)
     @post.views_count += 1
     @post.save
@@ -70,13 +72,20 @@ class PostsController < ApplicationController
   def about
   end
 
-  # S3からのダウンロード
+  # S3からの画像ダウンロード
   def download
-    data = open(URI.encode(@post.image.url))
-    send_data data.read, disposition: 'attachment',
-    filename: @post.file_name, type: @post.content_type
+
+    data_path = open(URI.decode(@post.image.url))
+    send_file data_path, disposition: 'attachment',
+    filename: @post.image_name, type: @post.image_type
   end
 
+  def file_download
+
+    data_path = open(URI.decode(@post.ms_office.url))
+    send_file data_path, disposition: 'attachment',
+    filename: @post.file_name, type: @post.file_type
+  end
   private
   def set_post
     @post = Post.find(params[:id])
