@@ -4,4 +4,11 @@ module ApplicationHelper
       redirect_to root_path, notice: 'ログインしてください'
     end
   end
+
+  # 追記 現在ログインしているユーザーと投稿者が合っていなければ編集できない
+  def ensure_correct_user
+    unless current_user.id == @post.user_id #IDと比較する。ユーザーIDと比較する
+      redirect_to posts_path, notice: "あなたが投稿したもの以外は編集、削除できません。"
+    end
+  end
 end

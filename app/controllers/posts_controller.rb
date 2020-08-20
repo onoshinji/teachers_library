@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :download]
+  before_action :ensure_correct_user, only:[:edit,:destroy]
   def index
   end
 
@@ -36,6 +37,7 @@ class PostsController < ApplicationController
   end
 
   def show
+
     @favorite = current_user.favorites.find_by(post_id: @post.id)
     @post.views_count += 1
     @post.save
@@ -72,9 +74,9 @@ class PostsController < ApplicationController
 
   # S3からのダウンロード
   def download
-    data = open(URI.encode(@post.image.url))
-    send_data data.read, disposition: 'attachment',
-    filename: @post.file_name, type: @post.content_type
+      data = open(@post.image.url)
+      send_data @post.data, disposition: 'attachment',
+      filename: @post.file_name, type: @post.content_type
   end
 
   private
