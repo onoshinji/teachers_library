@@ -82,7 +82,7 @@ class PostsController < ApplicationController
 
   def file_download
 
-    data = open(URI.decode(@post.ms_office.url))
+    data_path = open(URI.decode(@post.ms_office.url))
     send_file data_path, disposition: 'attachment',
     filename: @post.file_name, type: @post.file_type
   end
