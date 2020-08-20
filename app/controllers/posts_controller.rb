@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  # require 'aws-sdk'
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
