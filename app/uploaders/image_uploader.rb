@@ -12,9 +12,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   process :resize_to_limit => [800,600]
-  version :user_thumb do
-    process resize_to_fit: [40, 40]
-  end
+  # ユーザー画像アップローダー分離のため、必要としなくなった
+  # version :user_thumb do
+  #   process resize_to_fit: [40, 40]
+  # end
   version :thumb do
     process resize_to_fit: [240, 180]
   end

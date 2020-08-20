@@ -76,14 +76,14 @@ class PostsController < ApplicationController
   def download
     # data = openの行は必要ない可能性
     data = open(URI.encode(@post.image.url))
-    send_data @post.data, disposition: 'attachment',
+    send_data data, disposition: 'attachment',
     filename: @post.image_name, type: @post.image_type
   end
 
   def file_download
     # data = openの行は必要ない可能性
     data = open(URI.encode(@post.ms_office.url))
-    send_data @post.data, disposition: 'attachment',
+    send_data data, disposition: 'attachment',
     filename: @post.file_name, type: @post.file_type
   end
   private
