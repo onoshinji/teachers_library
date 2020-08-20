@@ -11,7 +11,8 @@
   </span>
   <p><%= image_tag @post.image.url %></p>
     <p><%= @post.image.url%> </p>
-  <p><%= link_to 'ダウンロード', download_post_path(@post) %></p>
+  <p><%= link_to '画像ダウンロード', download_post_path(@post) %></p>
+  <p><%= link_to 'ファイルダウンロード', file_download_post_path(@post) %></p>
   <div id ="margin">
     <% unless @post.user_id == current_user.id %>
       <% if @favorite.present? %>

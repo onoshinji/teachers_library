@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   # require 'aws-sdk'
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
   before_action :ensure_correct_user, only:[:edit,:destroy]
   def index
   end
@@ -72,13 +72,20 @@ class PostsController < ApplicationController
   def about
   end
 
-  # S3からのダウンロード
+  # S3からの画像ダウンロード
   def download
-      data = open(@post.image.url)
-      send_data @post.data, disposition: 'attachment',
-      filename: @post.file_name, type: @post.content_type
+    # data = openの行は必要ない可能性
+    data = open(URI.encode(@post.image.url))
+    send_data @post.data, disposition: 'attachment',
+    filename: @post.image_name, type: @post.image_type
   end
 
+  def file_download
+    # data = openの行は必要ない可能性
+    data = open(URI.encode(@post.ms_office.url))
+    send_data @post.data, disposition: 'attachment',
+    filename: @post.file_name, type: @post.file_type
+  end
   private
   def set_post
     @post = Post.find(params[:id])

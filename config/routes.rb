@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :posts do
     member do
       get :download
+      get :file_download
     end
   end
   get :about, to: 'posts#about'

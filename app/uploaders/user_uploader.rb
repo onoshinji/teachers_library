@@ -13,8 +13,6 @@ class UserUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [240, 180]
   end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
   def extension_whitelist
     %w(jpg jpeg gif png)
   end
@@ -23,4 +21,7 @@ class UserUploader < CarrierWave::Uploader::Base
     "user.jpg"
   end
 
+  def filename
+   "#{SecureRandom.uuid}.#{file.extension}" if original_filename.present?
+  end
 end

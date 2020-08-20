@@ -24,16 +24,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     "default.jpg"
   end
 
-  # Process files as they are uploaded:
-  # process scale: [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
-
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+   "#{SecureRandom.uuid}.#{file.extension}" if original_filename.present?
+  end
 end
