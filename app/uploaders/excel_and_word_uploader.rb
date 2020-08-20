@@ -8,7 +8,7 @@ class ExcelAndWordUploader < CarrierWave::Uploader::Base
     %w(doc docx csv xls xlsm pdf)
   end
 
-  def filename
-   "#{SecureRandom.uuid}.#{file.extension}" if original_filename.present?
-  end
+  # def filename
+  #  "#{SecureRandom.uuid}.#{file.extension}" if original_filename.present?
+  # end
 end
