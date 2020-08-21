@@ -1,6 +1,5 @@
 require 'rails_helper'
 RSpec.describe '投稿管理機能', type: :model do
-
   describe '#titleカラム'  do
      context '投稿を作成したとき'  do
        it 'titleが空ならバリデーションが通らない' do
