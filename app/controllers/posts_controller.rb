@@ -73,15 +73,15 @@ class PostsController < ApplicationController
 
   # S3からの画像ダウンロード
   def download
-
-    data_path = open(URI.decode(@post.image.url))
+    # 変更前    data_path = open(URI.decode(@post.image.url))
+    data_path = open(CGI.unescape(@post.image.url))
     send_file data_path, disposition: 'attachment',
     filename: @post.image_name, type: @post.image_type
   end
 
   def file_download
-
-    data_path = open(URI.decode(@post.ms_office.url))
+    #変更前     data_path = open(URI.decode(@post.ms_office.url))
+    data_path = open(CGI.unescape(@post.ms_office.url))
     send_file data_path, disposition: 'attachment',
     filename: @post.file_name, type: @post.file_type
   end
