@@ -73,21 +73,23 @@ class PostsController < ApplicationController
 
   # S3からの画像ダウンロード
   def download
-    # 変更前    data_path = open(URI.decode(@post.image.url))
-    # filename : @post.image_name
+    # 変更前
+    # data_path = open(url)
+    # send_file data_path, disposition: 'attachment',
     url = URI.encode(@post.image.url)
     data_path = open(url)
-    send_file data_path, disposition: 'attachment',
+    send_data data_path.read, disposition: 'attachment',
     filename: "download_image", type: @post.image_type
   end
 
   def file_download
-    #変更前     data_path = open(URI.decode(@post.ms_office.url))
-    # filename : @post.file_name
+    #変更前
+    # url = URI.encode(@post.ms_office.url)
+    # data_path = open(url)
     url = URI.encode(@post.ms_office.url)
     data_path = open(url)
     # この段階ではおそらくcsvファイルがエンコードされているため、ダウンロードするときに、decodeしないといけない可能性
-    send_file data_path, disposition: 'attachment',
+    send_data data_path.read, disposition: 'attachment',
     filename: "download_file", type: @post.file_type
   end
   private
