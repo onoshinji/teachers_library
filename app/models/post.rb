@@ -28,7 +28,7 @@ class Post < ApplicationRecord
   def image_type
     self.image.content_type
   end
-  #######################
+  #
 
   #ms_officeダウンロードに関連したメソッドの定義
   def file_name
@@ -37,7 +37,7 @@ class Post < ApplicationRecord
   def file_type
     self.ms_office.content_type
   end
-  #######################
+  #
   mount_uploader :ms_office, ExcelAndWordUploader
   mount_uploader :image, ImageUploader
   # enum集
