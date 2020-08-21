@@ -10,10 +10,11 @@
   <% end %>
   </span>
   <p><%= image_tag @post.image.url %></p>
+
   <% if @post.image.url == "default.jpg"%>
     <p>画像はありません</p>
   <% else %>
-    <p><%= @post.image.url%> </p>
+    <p><%= URI.decode(@post.image.url)%> </p>
     <p><%= link_to '画像ダウンロード', download_post_path(@post) %></p>
   <% end %>
 

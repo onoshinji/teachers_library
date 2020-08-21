@@ -75,7 +75,8 @@ class PostsController < ApplicationController
   def download
     # 変更前    data_path = open(URI.decode(@post.image.url))
     # filename : @post.image_name
-    data_path = open(CGI.unescape(@post.image.url))
+    url = URI.decode(@post.image.url)
+    data_path = open(url)
     send_file data_path, disposition: 'attachment',
     filename: "download_image", type: @post.image_type
   end
@@ -83,7 +84,9 @@ class PostsController < ApplicationController
   def file_download
     #変更前     data_path = open(URI.decode(@post.ms_office.url))
     # filename : @post.file_name
-    data_path = open(@post.ms_office.url)
+    url = URI.decode(@post.ms_office.url)
+    data_path = open(url)
+    # この段階ではおそらくcsvファイルがエンコードされているため、ダウンロードするときに、decodeしないといけない可能性
     send_file data_path, disposition: 'attachment',
     filename: "download_file", type: @post.file_type
   end
