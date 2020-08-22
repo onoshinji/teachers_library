@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to 'http://www.google.co.jp/', :alert => exception.message
+    redirect_to '/', :alert => exception.message
   end
 end
