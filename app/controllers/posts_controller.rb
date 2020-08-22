@@ -132,10 +132,11 @@ class PostsController < ApplicationController
         @posts = @posts.order(created_at: :DESC)
       elsif params[:sort] == 'view'
         @posts = @posts.order(views_count: :DESC)
-      elsif params[:sort] == 'favorite'
-        @posts = @posts.joins(:favorites)
-        binding.pry
+      # elsif params[:sort] == 'favorite'
+      #   @posts = @posts.joins(:favorites)
       end
     end
   end
+
+  
 end

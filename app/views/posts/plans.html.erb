@@ -46,7 +46,7 @@
           <div class="btn-group mr-2">
           </div>
             <%= form_with  url: plans_path, method: :get, local: true do |form| %>
-              <%= form.select :sort,{'新着順': 'new_arrival', '閲覧数順': 'view',},
+              <%= form.select :sort,{'新着順': 'new_arrival', '閲覧数順': 'view', 'お気に入り数順': 'favorite'},
                                     { include_blank: '',},
                                     { id: 'sort' , required: true } %>
               <%= form.submit '並び替え'%>
