@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [:name,:email, :image])
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_path, :alert => exception.message
+  end
 end
