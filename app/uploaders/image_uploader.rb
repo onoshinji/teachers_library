@@ -29,7 +29,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     "default.jpg"
   end
 
-
+  # セキュアランダムuuidを用いてファイルをランダム名で保存する。filenameメソッドの記述だけではうまくいかない
   def filename
     "#{secure_token}.#{file.extension}" if original_filename.present?
   end
@@ -39,5 +39,4 @@ class ImageUploader < CarrierWave::Uploader::Base
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
 
-  
 end
