@@ -46,15 +46,15 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         expect(current_path).to eq edit_user_registration_path
       end
 
-      it '管理者のページは見れないこと' do
-        visit rails_admin_path
-        expect(current_path).to eq root_path
-      end
-      # it 'ログアウトできること' do
-      #   visit user_path(id: 10000)
-      #   click_on 'Logout'
-      #   expect(page).to have_content 'あなたは今ログインしていません'
+      # it '管理者のページは見れないこと' do
+      #   visit rails_admin_path
+      #   expect(current_path).to eq root_path
       # end
+      it 'ログアウトできること' do
+        visit user_path(id: 10000)
+        click_on 'Logout'
+        expect(page).to have_content 'あなたは今ログインしていません'
+      end
     end
   end
   # describe '管理者画面のテスト' do

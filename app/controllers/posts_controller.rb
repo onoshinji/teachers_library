@@ -36,7 +36,7 @@ class PostsController < ApplicationController
   end
 
   def show
-
+    @tag_count = @post.tags.count
     @favorite = current_user.favorites.find_by(post_id: @post.id)
     @post.views_count += 1
     @post.save
@@ -86,6 +86,7 @@ class PostsController < ApplicationController
     send_data data_path.read, disposition: 'attachment',
     filename: "download_file", type: @post.file_type
   end
+
   private
   def set_post
     @post = Post.find(params[:id])
@@ -131,6 +132,9 @@ class PostsController < ApplicationController
         @posts = @posts.order(created_at: :DESC)
       elsif params[:sort] == 'view'
         @posts = @posts.order(views_count: :DESC)
+      elsif params[:sort] == 'favorite'
+        @posts = @posts.joins(:favorites)
+        binding.pry
       end
     end
   end
