@@ -11,4 +11,10 @@ module ApplicationHelper
       redirect_to posts_path, notice: "あなたが投稿したもの以外は編集、削除できません。"
     end
   end
+
+  def admin_user?
+    if current_user.admin == false
+      redirect_to root_path, notice: "あなたは管理者ではありません"
+    end
+  end
 end

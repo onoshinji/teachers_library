@@ -1,9 +1,8 @@
 class PostsController < ApplicationController
-  # require 'aws-sdk'
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
-  before_action :ensure_correct_user, only:[:edit,:destroy]
+  before_action :ensure_correct_user, only:[:edit,:destroy,]
   def index
   end
 
@@ -74,17 +73,18 @@ class PostsController < ApplicationController
 
   # S3からの画像ダウンロード
   def download
-
-    data_path = open(URI.decode(@post.image.url))
-    send_file data_path, disposition: 'attachment',
-    filename: @post.image_name, type: @post.image_type
+    url = URI.encode(@post.image.url)
+    data_path = open(url)
+    send_data data_path.read, disposition: 'attachment',
+    filename: "download_image", type: @post.image_type
   end
 
   def file_download
-
-    data_path = open(URI.decode(@post.ms_office.url))
-    send_file data_path, disposition: 'attachment',
-    filename: @post.file_name, type: @post.file_type
+    url = URI.encode(@post.ms_office.url)
+    data_path = open(url)
+    # この段階ではおそらくcsvファイルがエンコードされているため、ダウンロードするときに、decodeしないといけない可能性
+    send_data data_path.read, disposition: 'attachment',
+    filename: "download_file", type: @post.file_type
   end
   private
   def set_post

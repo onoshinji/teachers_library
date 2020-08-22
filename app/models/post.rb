@@ -1,12 +1,13 @@
 class Post < ApplicationRecord
   validates :title,  presence: true, length: { maximum: 100 }
-  validates :content, presence: true, length: { maximum: 2000 }
+  validates :content, presence: true, length: { maximum: 500 }
   # validates :image, presence: true, imageカラムが空の場合も想定されたため
   validates :grade, presence: true
   validates :subject, presence: true
   validates :unit, presence: true
   #検索機能のためのscope
-  scope :grade_search, -> (type_search) { where(type: type_search)}
+  # ファイルの種類はページ遷移時に取得するので、type_searchは使用しなくなった
+  # scope :type_search, -> (type_search) { where(type: type_search)}
   scope :grade_search, -> (grade_search) { where(grade: grade_search)}
   scope :subject_search, -> (subject_search) { where(subject: subject_search)}
   scope :unit_search, -> (unit_search) { where('unit LIKE ?',"%#{(unit_search)}%")}
@@ -28,7 +29,7 @@ class Post < ApplicationRecord
   def image_type
     self.image.content_type
   end
-  #######################
+  #
 
   #ms_officeダウンロードに関連したメソッドの定義
   def file_name
@@ -37,7 +38,7 @@ class Post < ApplicationRecord
   def file_type
     self.ms_office.content_type
   end
-  #######################
+  #
   mount_uploader :ms_office, ExcelAndWordUploader
   mount_uploader :image, ImageUploader
   # enum集
