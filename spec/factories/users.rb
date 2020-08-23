@@ -18,7 +18,7 @@ FactoryBot.define do
   factory :admin_user1, class: User do
     id { 10002 }
     name { 'admin1' }
-    email { 'admin@example.com' }
+    email { 'admin1@example.com' }
     password { '00000000' }
     admin { true }
     confirmed_at { Date.today }
