@@ -2,7 +2,7 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
   margin-bottom: 0;
-  background-color: #fff;
+  background: rgba(127,127,127,0.3);
 }
 @media (min-width: 768px) {
   .jumbotron {
@@ -20,5 +20,5 @@
 }
 
 .jumbotron .container {
-  max-width: 40rem;
+  max-width: 30rem;
 }

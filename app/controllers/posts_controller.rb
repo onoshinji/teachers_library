@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
+  before_action :ensure_correct_user, only:[:edit,:destroy,]
   def index
   end
 
@@ -35,6 +36,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @tag_count = @post.tags.count
     @favorite = current_user.favorites.find_by(post_id: @post.id)
     @post.views_count += 1
     @post.save
@@ -46,6 +48,7 @@ class PostsController < ApplicationController
   end
 
   def worksheets
+    # params[:sort]がなければ新着順で表示する
     @posts = Post.where(kind: 'ワークシート').page(params[:page]).per(5)
     main_search
     tag_search
@@ -60,8 +63,7 @@ class PostsController < ApplicationController
   end
 
   def plans
-    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れてすべての種類のファイルを表示するようにしている。実装では下記の表記になおす
-    # @posts = Post.where(kind: '指導案')
+    @posts = Post.where(kind: '指導案').page(params[:page]).per(5)
     main_search
     tag_search
     sort
@@ -69,13 +71,20 @@ class PostsController < ApplicationController
   def about
   end
 
-  # S3からのダウンロード
+  # S3からの画像ダウンロード
   def download
-    @post = Post.find(download_params[:id])
-    
-    data = open(URI.encode(@post.image.url))
-    send_data data.read, disposition: 'attachment',
-    filename: @post.file_name, type: @post.content_type
+    url = URI.encode(@post.image.url)
+    data_path = open(url)
+    send_data data_path.read, disposition: 'attachment',
+    filename: "download_image", type: @post.image_type
+  end
+
+  def file_download
+    url = URI.encode(@post.ms_office.url)
+    data_path = open(url)
+    # この段階ではおそらくcsvファイルがエンコードされているため、ダウンロードするときに、decodeしないといけない可能性
+    send_data data_path.read, disposition: 'attachment',
+    filename: "download_file", type: @post.file_type
   end
 
   private
@@ -83,9 +92,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def download_params
-    params.permit(:id)
-  end
   def post_params
     params.require(:post).permit(:title,
       :content,
@@ -122,10 +128,12 @@ class PostsController < ApplicationController
   # ソート機能
   def sort
     if params[:sort].present?
-      if params[:sort] == 'new_arrival'
+      if params[:sort] == 'new'
         @posts = @posts.order(created_at: :DESC)
       elsif params[:sort] == 'view'
         @posts = @posts.order(views_count: :DESC)
+      elsif params[:sort] == 'old'
+        @posts = @posts.order(created_at: :ASC)
       end
     end
   end

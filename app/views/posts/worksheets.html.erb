@@ -11,7 +11,7 @@
             <div class="grade_search">
             <span data-feather="file"></span>
               <%= form.label :学年 %>
-              <%= form.select :grade_search, Post.grades.keys, selected: 1 %>
+              <%= form.select :grade_search, Post.grades.keys, selected: 1  %>
             </div>
             <div class="subject_search">
             <%= form.label :教科 %>
@@ -19,7 +19,7 @@
             </div>
             <div class="unit_search">
               <%= form.label :単元 %>
-              <%= form.text_field :unit_search %>
+              <%= form.text_field :unit_search , class: "form-control form-control-sm"%>
             </div>
               <%= form.submit '検索する', name: nil %>
             <% end %>
@@ -29,7 +29,7 @@
             <% end %>
           </li>
           <li class="nav-item">
-            <%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary' %>
+            <%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary btn-sm' %>
           </li>
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -46,7 +46,7 @@
           <div class="btn-group mr-2">
           </div>
             <%= form_with  url: worksheets_path, method: :get, local: true do |form| %>
-              <%= form.select :sort,{'新着順': 'new_arrival', '閲覧数順': 'view',},
+              <%= form.select :sort,{'新着順': 'new', '古い順': 'old', '閲覧数順': 'view',},
                                     { include_blank: '',},
                                     { id: 'sort' , required: true } %>
               <%= form.submit '並び替え'%>
