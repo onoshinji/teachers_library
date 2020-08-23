@@ -6,3 +6,13 @@
   background-size: cover;
   font-size: .875rem;
 }
+
+html {
+  position:relative;
+  min-height: 100%;
+}
+
+#error_explanation{
+  text-align: center;
+  font-size: 1.5rem;
+}
