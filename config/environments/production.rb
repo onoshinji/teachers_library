@@ -47,7 +47,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "teachers_library_#{Rails.env}"
   # メール送信用の記述
-  config.action_mailer.default_url_options = { host: 'http://18.177.214.34//' }
+  config.action_mailer.default_url_options = { host: 'http://18.177.214.34/' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   :address => "smtp.gmail.com",

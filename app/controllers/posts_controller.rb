@@ -48,6 +48,7 @@ class PostsController < ApplicationController
   end
 
   def worksheets
+    # params[:sort]がなければ新着順で表示する
     @posts = Post.where(kind: 'ワークシート').page(params[:page]).per(5)
     main_search
     tag_search
@@ -62,8 +63,7 @@ class PostsController < ApplicationController
   end
 
   def plans
-    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れてすべての種類のファイルを表示するようにしている。実装では下記の表記になおす
-    # @posts = Post.where(kind: '指導案')
+    @posts = Post.where(kind: '指導案').page(params[:page]).per(5)
     main_search
     tag_search
     sort
@@ -128,12 +128,12 @@ class PostsController < ApplicationController
   # ソート機能
   def sort
     if params[:sort].present?
-      if params[:sort] == 'new_arrival'
+      if params[:sort] == 'new'
         @posts = @posts.order(created_at: :DESC)
       elsif params[:sort] == 'view'
         @posts = @posts.order(views_count: :DESC)
-      # elsif params[:sort] == 'favorite'
-      #   @posts = @posts.joins(:favorites)
+      elsif params[:sort] == 'old'
+        @posts = @posts.order(created_at: :ASC)
       end
     end
   end
