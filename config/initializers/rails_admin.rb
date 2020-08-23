@@ -1,8 +1,11 @@
 RailsAdmin.config do |config|
   ## == Devise ==
+  # 変更前
   config.authenticate_with do
     warden.authenticate! scope: :user
   end
+
+  config.parent_controller = 'ApplicationController' 
   config.current_user_method(&:current_user)
   ## == CancanCan ==
   config.authorize_with :cancancan

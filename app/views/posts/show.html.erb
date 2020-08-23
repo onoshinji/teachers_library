@@ -4,24 +4,24 @@
   <p>内容: <%= @post.content %></p>
   <span>閲覧数: <%= @post.views_count %></span>
   <span>お気に入り件数<%= @post.favorites.count %></span>
-  <span class= 'btn btn-primary'>
-  <% @post.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %>
+  <% if  @tag_count >=1 %>
+  <span class= 'btn btn-primary btn-sm'>
+    <% @post.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
   </span>
+  <% end %>
   <p><%= image_tag @post.image.url %></p>
-
   <% if @post.image.url == "default.jpg"%>
     <p>画像はありません</p>
   <% else %>
-    <p><%= @post.image.url%> </p>
-    <p><%= CGI.escape(@post.image.url)%> </p>
     <p><%= link_to '画像ダウンロード', download_post_path(@post) %></p>
   <% end %>
 
-
   <% unless @post.ms_office.url == nil %>
     <p><%= link_to 'ファイルダウンロード', file_download_post_path(@post) %></p>
+  <% else  %>
+    <p>この投稿にword,excelファイルはありません</p>
   <% end %>
   <div id ="margin">
     <% unless @post.user_id == current_user.id %>
@@ -32,12 +32,10 @@
       <% end %>
     <% end %>
   </div>
-  <%= link_to '新しく投稿する', new_post_path %>
+<%= link_to '新しく投稿する', new_post_path %>
+  <% if current_user == @post.user %>
 <div id ="margin">
   <%= link_to "投稿を編集する", edit_post_path(@post.id), data: { confirm: '本当に編集していいですか？' } %>
   <%= link_to '投稿を削除する', post_path(@post.id),data: { confirm: '本当に削除していいですか？' }, method: :delete %>
 </div>
-<%# <% if current_user == post.user %>
-<%# <%= link_to "編集", edit_post_path(post.id), data: { confirm: '本当に編集していいですか？' } %>
-<%# <%= link_to '削除', post_path(post.id),data: { confirm: '本当に削除していいですか？' }, method: :delete,class: 'btn btn-danger' %>
-<%# <% end %>
+<% end %>

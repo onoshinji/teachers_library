@@ -3,9 +3,13 @@
 class Ability
   include CanCan::Ability
   def initialize(user)
+
+
     if user.try(:admin?)
       can :access, :rails_admin
       can :manage, :all
+    else
+      can :read, :all
     end
     # Define abilities for the passed in user here. For example:
     #
