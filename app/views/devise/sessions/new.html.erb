@@ -12,7 +12,6 @@
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password",class: "form-control form-control-sm", placeholder:"Password"%>
   </div>
-  <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post %>
   <% if devise_mapping.rememberable? %>
     <div>
       <%= f.check_box :remember_me %>
@@ -22,6 +21,8 @@
   <div class="actions">
     <%= f.submit t('.sign_in') %>
   </div>
+  <br>
+    <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post,class: 'btn btn-success btn-block' %>
   <%= render "devise/shared/links" %>
 <% end %>
 </div>
