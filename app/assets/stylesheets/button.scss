@@ -1,0 +1,67 @@
+/* 通常のボタン色 */
+
+.btn-favo,
+.btn-favo.disabled, .btn-favo:disabled {
+  color: #fff;
+  background-color: #7fffff;
+  border-color: #7fffff;
+}
+
+.btn-pink,
+.btn-pink.disabled, .btn-pink:disabled {
+  color: #fff;
+  background-color: #ff7bff;
+  border-color: #ff7bff;
+}
+
+/* focusされた時の枠線の色 */
+.btn-pink:focus, .btn-pink.focus,
+.btn-pink:not(:disabled):not(.disabled):active:focus, .btn-pink:not(:disabled):not(.disabled).active:focus,
+.show > .btn-pink.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(200, 123, 255, 0.5);
+}
+
+/* hover時（マウスカーソルを重ねた時）の色（通常より濃いor暗めの色を指定） */
+.btn-pink:hover {
+  color: #fff;
+  background-color: #ff69d9;
+  border-color: #ff62cc;
+}
+
+/* active時の色（hover時と同等かさらに濃いor暗めの色を指定） */
+.btn-pink:not(:disabled):not(.disabled):active, .btn-pink:not(:disabled):not(.disabled).active,
+.show > .btn-pink.dropdown-toggle {
+  color: #fff;
+  background-color: #ee62cc;
+  border-color: #ee5cbf;
+}
+
+
+.btn-guest,
+.btn-guest.disabled, .btn-guest:disabled {
+  color: #fff;
+  background-color: #FF773E;
+  border-color: #FF773E;
+}
+
+/* focusされた時の枠線の色 */
+.btn-guest:focus, .btn-guest.focus,
+.btn-guest:not(:disabled):not(.disabled):active:focus, .btn-guest:not(:disabled):not(.disabled).active:focus,
+.show > .btn-guest.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(50, 50, 50, 0.5);
+}
+
+/* hover時（マウスカーソルを重ねた時）の色（通常より濃いor暗めの色を指定） */
+.btn-guest:hover {
+  color: #fff;
+  background-color: #FF5F17;
+  border-color: #FF5F17;
+}
+
+/* active時の色（hover時と同等かさらに濃いor暗めの色を指定） */
+// ここをコメントアウトしないとエラーになる
+// .btn-guest:not(:disabled):not(.disabled):active, .btn-guest:not(:disabled):not(.disabled).active,
+// .show > .btn-guest.dropdown-toggle {
+//   color: #fff;
+//   background-color: #FF4F02;
+//   border-color: #FF4F02;

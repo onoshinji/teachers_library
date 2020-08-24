@@ -18,7 +18,7 @@ FactoryBot.define do
   factory :admin_user1, class: User do
     id { 10002 }
     name { 'admin1' }
-    email { 'admin@example.com' }
+    email { 'admin1@example.com' }
     password { '00000000' }
     admin { true }
     confirmed_at { Date.today }
@@ -29,16 +29,6 @@ FactoryBot.define do
     email { 'admin2@example.com' }
     password { '00000000' }
     admin { true }
-    confirmed_at { Date.today }
-  end
-
-  # モデルテスト用ユーザー
-  factory :name_null_user, class: User do
-    id { 10004 }
-    name { '' }
-    email { 'user3@example.com' }
-    password { '00000000' }
-    admin { false }
     confirmed_at { Date.today }
   end
 end

@@ -14,9 +14,9 @@
         </div>
         <% end %>
           <%= form.label :タイトル %>
-          <%= form.text_field :title, autofocus: true, autocomplete: "name" ,class: "form-control form-control-sm", placeholder:"タイトルを入力してください"  %>
+          <%= form.text_field :title, autofocus: true, class: "form-control form-control-sm", placeholder:"タイトルを入力してください"  %>
           <%= form.label :説明 %>
-          <%= form.text_area :content, autofocus: true, autocomplete: "name" ,class: "form-control", placeholder:"説明を５００字以内で記入してください" %>
+          <%= form.text_area :content, autofocus: true,class: "form-control", placeholder:"説明を５００字以内で記入してください" %>
 
           <%= form.label :学年%>
           <%= form.select :grade, Post.grades.keys, selected: 1 %>
@@ -25,7 +25,7 @@
           <%= form.select :subject, Post.subjects.keys, selected: 1 %>
 
           <%= form.label :種類 %>
-          <%= form.select :kind, Post.kinds.keys,  selected: 1 %>
+          <%= form.select :kind, Post.kinds.keys, include_blank: "選択してください" %>
           <div>
           <%= form.label :単元 %>
           <%= form.text_field :unit ,autofocus: true, autocomplete: "name" ,class: "form-control form-control-sm", placeholder:"単元名を入力してください" %>

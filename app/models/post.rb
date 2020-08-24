@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   validates :grade, presence: true
   validates :subject, presence: true
   validates :unit, presence: true
+  validates :kind, presence: true
   #検索機能のためのscope
   # ファイルの種類はページ遷移時に取得するので、type_searchは使用しなくなった
   # scope :type_search, -> (type_search) { where(type: type_search)}
