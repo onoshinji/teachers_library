@@ -55,6 +55,11 @@
         <p id="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
           <% @posts.each do |post| %>
+            <% post.tags.each do |tag| %>
+              <span class= 'btn btn-info btn-sm rounded-pill'>
+                <%= tag.name %>
+              </span>
+              <% end %>
             <p><span><%= "No. #{post.id}" %></span>
             <%= post.grade %><%= post.subject %><%= post.unit %>
             <span><i class="fa fa-binoculars"></i><%= post.views_count %></span>

@@ -4,7 +4,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     @user1 = FactoryBot.create(:user1)
     @user2 = FactoryBot.create(:user2)
     @admin_user1 = FactoryBot.create(:admin_user1)
-    # @Tag_task = FactoryBot.create(:task, user: @user1)
+    @Tag_post = FactoryBot.create(:post1, user: @user1)
     FactoryBot.create(:post1, user: @user2)
     FactoryBot.create(:post2, user: @admin_user1)
   end
@@ -33,16 +33,20 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_button '投稿する'
         expect(page).to have_content 'ファイルを投稿しました'
       end
-  #     it 'ラベル検索ができる' do
-  #         visit new_post_path
-  #         fill_in 'タスク', with: 'yjsn'
-  #         fill_in '内容', with: 'con'
-  #         select '低', from: '優先順位'
-  #         select '未着手', from: 'ステータス'
-  #         check 'help'
-  #         click_button '登録する'
-  #         expect(page).to have_content 'help'
-  #     end
+      it 'タグ検索ができる' do
+        visit new_post_path
+        fill_in 'post[title]', with: 'テスト１'
+        fill_in 'post[content]', with: 'テスト説明'
+        select '１年生', from: 'post[grade]'
+        select '国語', from: 'post[subject]'
+        select 'ワークシート', from: 'post[kind]'
+        fill_in 'post[unit]', with: '単元名１'
+        check '初任者'
+        click_button '投稿する'
+        visit worksheets_path
+        select '初任者', from: 'tag_id'
+        click_button 'タグ検索'
+      end
   #   end
   # end
   # describe 'タスク一覧画面' do
