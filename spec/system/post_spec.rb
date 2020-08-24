@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe 'タスク管理機能', type: :system do
+RSpec.describe '投稿管理機能', type: :system do
   before do
     @user1 = FactoryBot.create(:user1)
     @user2 = FactoryBot.create(:user2)
@@ -7,9 +7,15 @@ RSpec.describe 'タスク管理機能', type: :system do
     @Tag_post = FactoryBot.create(:post1, user: @user1)
     FactoryBot.create(:post1, user: @user2)
     FactoryBot.create(:post2, user: @admin_user1)
+    FactoryBot.create(:post3, user: @user2)
+    FactoryBot.create(:post4, user: @user2)
+    FactoryBot.create(:post5, user: @user2)
+    FactoryBot.create(:post6, user: @user2)
+    FactoryBot.create(:post7, user: @user2)
+    FactoryBot.create(:post8, user: @user2)
+    FactoryBot.create(:post9, user: @user2)
   end
-  describe 'タスク登録画面' do
-    #タスク登録前にログインする
+  describe '投稿作成画面' do
     before do
       visit new_user_session_path
       fill_in 'メールアドレス', with: 'user1@example.com'
@@ -47,105 +53,109 @@ RSpec.describe 'タスク管理機能', type: :system do
         select '初任者', from: 'tag_id'
         click_button 'タグ検索'
       end
-  #   end
-  # end
-  # describe 'タスク一覧画面' do
-  #   before do
-  #     visit new_user_registration_path
-  #     fill_in 'メールアドレス', with: 'sample1@example.com'
-  #     fill_in 'パスワード', with: '00000000'
-  #     click_button 'ログイン'
-  #   end
-  #   context 'タスクを作成した場合' do
-  #     # テストコードを it '~' do end ブロックの中に記載する
-  #     it '作成済みのタスクが表示される' do
-  #       visit tasks_path
-  #       expect(page).to have_content 'デフォルトタイトルone'
-  #     end
-  #   end
-  #   context '複数のタスクを作成した場合' do
-  #     it 'タスクが作成日時の降順に並んでいる' do
-  #       visit tasks_path
-  #       @tasks = Task.order(created_at: :DESC).pluck(:task_name)
-  #       expect(@tasks[0]).to have_content 'デフォルトタイトルthree'
-  #       expect(@tasks[1]).to have_content 'デフォルトタイトルtwo'
-  #
-  #     end
-  #   end
-  #   context 'タスク検索をした場合' do
-  #     it "タイトルで検索できる" do
-  #       visit tasks_path
-  #       @task = FactoryBot.create(:task, task_name: 'タスクあいまい検索', user: @user1)
-  #       fill_in 'task_name_search', with: 'タスク'
-  #       click_button 'タスク検索'
-  #       expect(@task.task_name).to have_content 'タスクあいまい検索'
-  #
-  #     end
-  #   end
-  #   context 'ステータス検索をした場合' do
-  #     it "ステータスで検索できる" do
-  #       visit tasks_path
-  #       @task = FactoryBot.create(:task, status: '未着手', user: @user2)
-  #       select '未着手', from: 'status_search'
-  #       click_button 'ステータス検索'
-  #       expect(@task.status).to have_content '未着手'
-  #     end
-  #   end
-  #   context 'タイトルとステータスのAND検索をした場合' do
-  #     it "タイトルとステータスでAND検索できる" do
-  #       visit tasks_path
-  #       @task = FactoryBot.create(:task, task_name: 'タスク1', status: '未着手', user: @user1)
-  #       @task = FactoryBot.create(:second_task, task_name: 'task2', status: '着手中', user: @user2)
-  #       @task = FactoryBot.create(:third_task, task_name: 'タスク3', status: '着手中', user: @admin_user)
-  #       fill_in 'task_name_search', with: 'タスク'
-  #       select '着手中', from: 'status_search'
-  #       click_button 'ステータス検索'
-  #       expect(page).to have_content 'タスク3'
-  #     end
-  #   end
-  #   context '複数のタスクを作成し、終了期限でソートした場合' do
-  #     it '終了期限が早い順でソートを選び、その順番に並んでいる' do
-  #       visit tasks_path
-  #       select '終了期限が早い順', from: 'time_limit_select'
-  #       @tasks = Task.order(time_limit: :ASC).pluck(:task_name)
-  #       expect(@tasks[0]).to have_content 'デフォルトタイトルone'
-  #       expect(@tasks[1]).to have_content 'デフォルトタイトルtwo'
-  #       expect(@tasks[2]).to have_content 'デフォルトタイトルthree'
-  #     end
-  #     it '終了期限が遅い順でソートを選び、その順番に並んでいる' do
-  #       visit tasks_path
-  #       select '終了期限が遅い順', from: 'time_limit_select'
-  #       @tasks = Task.order(time_limit: :DESC).pluck(:task_name)
-  #       expect(@tasks[0]).to have_content 'デフォルトタイトルthree'
-  #       expect(@tasks[1]).to have_content 'デフォルトタイトルtwo'
-  #       expect(@tasks[2]).to have_content 'デフォルトタイトルone'
-  #     end
-  #   end
-  #   context '複数のタスクを作成し、優先順位でソートした場合' do
-  #     it '優先順位が低い順でソートを選び、その順番に並んでいる' do
-  #       visit tasks_path
-  #       select '低', from: 'priority_select'
-  #       @tasks = Task.order(priority: :ASC).pluck(:priority)
-  #       expect(@tasks[0]).to have_content '低'
-  #       expect(@tasks[1]).to have_content '中'
-  #       expect(@tasks[2]).to have_content '高'
-  #     end
-  #     it '優先順位が高い順でソートを選び、その順番に並んでいる' do
-  #       visit tasks_path
-  #       select '高', from: 'priority_select'
-  #       @tasks = Task.order(priority: :DESC).pluck(:priority)
-  #       expect(@tasks[0]).to have_content '高'
-  #       expect(@tasks[1]).to have_content '中'
-  #       expect(@tasks[2]).to have_content '低'
-  #     end
-  #   end
-  # end
+    end
+  end
+  describe '種類別投稿表示テスト' do
+    before do
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: 'user1@example.com'
+      fill_in 'パスワード', with: '00000000'
+      click_button 'ログイン'
+    end
+    context 'ワークシートの投稿を作成した場合' do
+      it '作成済みのタスクが表示される' do
+        visit worksheets_path
+        expect(page).to have_content 'くじらぐも'
+        expect(page).to have_content 'かけ算'
+      end
+    end
+    context '指導案の投稿を作成した場合' do
+      it '作成済みのタスクが表示される' do
+        visit plans_path
+        expect(page).to have_content '星野くんの2塁打'
+        expect(page).to have_content '絵具'
+      end
+    end
+    context '所見例の投稿を作成した場合' do
+      it '作成済みのタスクが表示される' do
+        visit findings_path
+        expect(page).to have_content '影絵'
+        expect(page).to have_content '学級討論会'
+      end
+    end
+
+    context '学年検索をした場合' do
+      it "学年で検索できる" do
+        visit worksheets_path
+        fill_in 'task_name_search', with: 'タスク'
+        click_button '検索する'
+        expect('１年生').to eq 2？
+      end
+    end
+    # context 'ステータス検索をした場合' do
+    #   it "ステータスで検索できる" do
+    #     visit tasks_path
+    #     @task = FactoryBot.create(:task, status: '未着手', user: @user2)
+    #     select '未着手', from: 'status_search'
+    #     click_button 'ステータス検索'
+    #     expect(@task.status).to have_content '未着手'
+    #   end
+    # end
+    # context 'タイトルとステータスのAND検索をした場合' do
+    #   it "タイトルとステータスでAND検索できる" do
+    #     visit tasks_path
+    #     @task = FactoryBot.create(:task, task_name: 'タスク1', status: '未着手', user: @user1)
+    #     @task = FactoryBot.create(:second_task, task_name: 'task2', status: '着手中', user: @user2)
+    #     @task = FactoryBot.create(:third_task, task_name: 'タスク3', status: '着手中', user: @admin_user)
+    #     fill_in 'task_name_search', with: 'タスク'
+    #     select '着手中', from: 'status_search'
+    #     click_button 'ステータス検索'
+    #     expect(page).to have_content 'タスク3'
+    #   end
+    # end
+    # context '複数のタスクを作成し、終了期限でソートした場合' do
+    #   it '終了期限が早い順でソートを選び、その順番に並んでいる' do
+    #     visit tasks_path
+    #     select '終了期限が早い順', from: 'time_limit_select'
+    #     @tasks = Task.order(time_limit: :ASC).pluck(:task_name)
+    #     expect(@tasks[0]).to have_content 'デフォルトタイトルone'
+    #     expect(@tasks[1]).to have_content 'デフォルトタイトルtwo'
+    #     expect(@tasks[2]).to have_content 'デフォルトタイトルthree'
+    #   end
+    #   it '終了期限が遅い順でソートを選び、その順番に並んでいる' do
+    #     visit tasks_path
+    #     select '終了期限が遅い順', from: 'time_limit_select'
+    #     @tasks = Task.order(time_limit: :DESC).pluck(:task_name)
+    #     expect(@tasks[0]).to have_content 'デフォルトタイトルthree'
+    #     expect(@tasks[1]).to have_content 'デフォルトタイトルtwo'
+    #     expect(@tasks[2]).to have_content 'デフォルトタイトルone'
+    #   end
+    # end
+    # context '複数のタスクを作成し、優先順位でソートした場合' do
+    #   it '優先順位が低い順でソートを選び、その順番に並んでいる' do
+    #     visit tasks_path
+    #     select '低', from: 'priority_select'
+    #     @tasks = Task.order(priority: :ASC).pluck(:priority)
+    #     expect(@tasks[0]).to have_content '低'
+    #     expect(@tasks[1]).to have_content '中'
+    #     expect(@tasks[2]).to have_content '高'
+    #   end
+    #   it '優先順位が高い順でソートを選び、その順番に並んでいる' do
+    #     visit tasks_path
+    #     select '高', from: 'priority_select'
+    #     @tasks = Task.order(priority: :DESC).pluck(:priority)
+    #     expect(@tasks[0]).to have_content '高'
+    #     expect(@tasks[1]).to have_content '中'
+    #     expect(@tasks[2]).to have_content '低'
+    #   end
+    # end
+  end
   #
   # describe 'タスク詳細画面' do
   #   context '任意のタスク詳細画面に遷移した場合' do
   #     before do
   #       visit new_user_registration_path
-  #       fill_in 'メールアドレス', with: 'sample1@example.com'
+  #       fill_in 'メールアドレス', with: 'user1@example.com'
   #       fill_in 'パスワード', with: '00000000'
   #       click_button 'ログイン'
   #     end
@@ -157,6 +167,4 @@ RSpec.describe 'タスク管理機能', type: :system do
   #     end
   #   end
   # end
-end
-end
 end

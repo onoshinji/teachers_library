@@ -25,7 +25,7 @@
             <% end %>
             <%= form_with url: findings_path, method: :get, local: true do |form| %>
               <%= form.select("tag_id", Tag.pluck(:name, :id), { include_blank: true }) %>
-              <%= form.submit 'タグ検索', name: nil %>
+              <%= form.submit 'タグ検索', name: nil , class: 'btn btn-primary'%>
             <% end %>
           </li>
           <li class="nav-item">

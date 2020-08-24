@@ -68,4 +68,23 @@ FactoryBot.define do
     kind { '指導案' }
     association :user
   end
+
+  factory :post8, class: Post do
+    title { 'title8' }
+    content { 'Factory8' }
+    subject { '総合' }
+    unit { '影絵' }
+    grade { '１年生' }
+    kind { '所見例' }
+    association :user
+  end
+  factory :post9, class: Post do
+    title { 'title9' }
+    content { 'Factory9' }
+    subject { '特別活動' }
+    unit { '学級討論会' }
+    grade { '１年生' }
+    kind { '所見例' }
+    association :user
+  end
 end
