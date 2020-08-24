@@ -49,7 +49,7 @@
 </div>
 </div>
 <%# ここからメインコンテンツ表示用。お気に入り一覧と自身の投稿内容をタブ切替で表示する %>
-<div>
+<div class = "col-8">
   <ul class="nav nav-tabs" role="tablist">
     <li class="active" role="presentation">
       <a aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab" class="btn btn-sm btn-info">お気に入り</a>
@@ -78,5 +78,6 @@
         <object><%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %></object>
       <% end %>
   </div>
+</div>
 </div>
 </div>
