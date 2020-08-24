@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
 <!-- 画面左側サイドバー -->
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav class="col-md-2 d-none d-md-block sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -11,7 +11,7 @@
             <div class="grade_search">
             <span data-feather="file"></span>
               <%= form.label :学年 %>
-              <%= form.select :grade_search, Post.grades.keys, selected: 1  %>
+              <%= form.select :grade_search, Post.grades.keys, selected: 1 %>
             </div>
             <div class="subject_search">
             <%= form.label :教科 %>
