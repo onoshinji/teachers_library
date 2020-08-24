@@ -63,7 +63,8 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
-      <% current_user.favorites.each do |favorite| %>
+      <% sorted_favorites = current_user.favorites.order(id: :DESC) %>
+      <% sorted_favorites.each do |favorite| %>
       <p><%= link_to image_tag(favorite.post.image.url(:thumb)), post_path(favorite.post.id) %></p>
       <%= "#{favorite.post.user.name}さんの投稿" %>
       <% end %>
@@ -72,7 +73,8 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <!-- deviseで@postsを取得できていない -->
-      <% current_user.posts.each do |post| %>
+      <% sorted_posts = current_user.posts.order(created_at: :DESC) %>
+      <% sorted_posts.each do |post| %>
         <object><%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %></object>
       <% end %>
   </div>

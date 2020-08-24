@@ -42,9 +42,7 @@
     <!-- 画面右側に表示されるコンテンツ -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h4>指導案</h4>
-          <div class="btn-group mr-2">
-          </div>
+        <h4></h4>指導案
             <%= form_with  url: plans_path, method: :get, local: true do |form| %>
             <%= form.select :sort,{'新着順': 'new', '古い順': 'old', '閲覧数順': 'view',},
                                     { include_blank: '',},
@@ -54,19 +52,19 @@
       </div>
       <p id="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-        <% @posts.each do |post| %>
-        <p><span><%= "No. #{post.id}" %></span>
-        <%= post.grade %><%= post.subject %><%= post.unit %>
-        <span><i class="fa fa-binoculars"></i><%= post.views_count %></span>
-        <span><i class="fa fa-heart"></i><%= post.favorites.count %></span>
-        <% post.tags.each do |tag| %>
-          <span class= 'btn btn-info btn-sm rounded-pill'>
-            <%= tag.name %>
-          </span>
-        <% end %></p>
-          <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
-        <% end %>
-      <p><%= paginate @posts %></p>
+      <% @posts.each do |post| %>
+      <p><span><%= "No. #{post.id}" %></span>
+      <%= post.grade %><%= post.subject %><%= post.unit %>
+      <span><i class="fa fa-binoculars"></i><%= post.views_count %></span>
+      <span><i class="fa fa-heart"></i><%= post.favorites.count %></span>
+      <% post.tags.each do |tag| %>
+        <span class= 'btn btn-info btn-sm rounded-pill'>
+          <%= tag.name %>
+        </span>
+      <% end %></p>
+        <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
+      <% end %>
+    <p><%= paginate @posts %></p>
     </main>
   </div>
 </div>
