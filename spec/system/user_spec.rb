@@ -69,15 +69,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         visit rails_admin_path
         expect(page).to have_content('サイト管理')
       end
-      # it '管理者はユーザを新規登録できること' do
-      #   visit new_admin_user_path
-      #   fill_in '名前', with: 'newuser'
-      #   fill_in 'メールアドレス', with: 'newuser@mail.com'
-      #   fill_in 'パスワード', with: 'newuser'
-      #   fill_in '確認用パスワード', with: 'newuser'
-      #   click_on 'アカウントを作成する'
-      #   expect(page).to have_content('新規ユーザーを作成しました')
-      # end
+
       it '管理者用はユーザの詳細ページにアクセスできること' do
         visit '/admin/user/10000/edit'
         expect(page).to have_content 'パスワード確認送信時刻'
