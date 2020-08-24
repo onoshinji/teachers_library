@@ -11,8 +11,8 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク登録画面' do
     #タスク登録前にログインする
     before do
-      visit new_user_registration_path
-      fill_in 'メールアドレス', with: 'sample1@example.com'
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: 'user1@example.com'
       fill_in 'パスワード', with: '00000000'
       click_button 'ログイン'
       Tag1 = Tag.create(name: :初任者)
@@ -23,16 +23,15 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '必要項目を入力して、createボタンを押した場合' do
       it ' タグを含む投稿データが保存される' do
         visit new_post_path
-        fill_in 'タイトル', with: 'テスト１'
-        fill_in '説明', with: 'テスト説明'
-        select '１年生', from: '学年'
-        select '国語', from: '教科'
-        select 'ワークシート', from: '種類'
+        fill_in 'post[title]', with: 'テスト１'
+        fill_in 'post[content]', with: 'テスト説明'
+        select '１年生', from: 'post[grade]'
+        select '国語', from: 'post[subject]'
+        select 'ワークシート', from: 'post[kind]'
+        fill_in 'post[unit]', with: '単元名１'
         check '初任者'
         click_button '投稿する'
-        visit
-        expect(page).to have_content 'テスト１'
-
+        expect(page).to have_content 'ファイルを投稿しました'
       end
   #     it 'ラベル検索ができる' do
   #         visit new_post_path
