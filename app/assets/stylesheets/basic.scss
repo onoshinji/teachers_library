@@ -1,5 +1,5 @@
  body {
-  color: white;
+  color: rgb(255,240,240);
   text-align: center;
   align-items: center;
   padding-top: 2.5rem;
@@ -17,4 +17,7 @@ html {
 #error_explanation{
   text-align: center;
   font-size: 1.5rem;
+}
+#content-font{
+  color: white;
 }

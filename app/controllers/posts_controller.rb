@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   end
 
   def findings
-    @posts = Post.where(kind: '所見例').page(params[:page]).per(5)
+    @posts = Post.where(kind: '所見例').page(params[:page]).per(10)
     main_search
     tag_search
     sort
