@@ -55,7 +55,7 @@
       <p id="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <% @posts.each do |post| %>
-      <p><span><%= link_to "No. #{post.id}" ,post_path(post.id)%></span>
+      <p><span><%= "No. #{post.id}" %></span>
       <%= post.grade %><%= post.subject %><%= post.unit %>
       <span><i class="fa fa-binoculars"></i><%= post.views_count %></span>
       <span><i class="fa fa-heart"></i><%= post.favorites.count %></span>
@@ -64,7 +64,7 @@
           <%= tag.name %>
         </span>
       <% end %></p>
-      <p id= "content-font"><%= post.content %></p>
+        <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
       <% end %>
     <p><%= paginate @posts %></p>
     </main>
