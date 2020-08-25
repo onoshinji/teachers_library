@@ -22,6 +22,7 @@
             <i class="fa fa-file"></i>
             <%= link_to "所見例", findings_path %>
             <% if user_signed_in? %>
+            <%= link_to  "管理者ページ", rails_admin_path ,id: "admin_font" if current_user.admin == true%>
               <%= "ログイン中: #{current_user.name}さん" %>
               <% if current_user.image.url.present? %>
                 <%= link_to image_tag(current_user.image.url(:user_thumb)), edit_user_registration_path(current_user.id) %>

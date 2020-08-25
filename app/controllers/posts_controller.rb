@@ -16,7 +16,7 @@ class PostsController < ApplicationController
       render :new
     else
       if @post.save
-        redirect_to edit_user_registration_path, notice: "ファイルを投稿しました"
+        redirect_to post_path(@post), notice: "ファイルを投稿しました"
         # ContactMailer.contact_mail(@post).deliver
       else
         render :new
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to posts_path, notice: "投稿を編集しました！"
+      redirect_to post_path(@post), notice: "投稿を編集しました！"
     else
       render :edit
     end

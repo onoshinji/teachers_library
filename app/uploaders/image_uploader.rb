@@ -22,7 +22,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # アップロード許可ファイル
   def extension_whitelist
-    %w(jpg jpeg gif png)
+    %w(jpg jpeg gif png pdf)
   end
   # デフォルト画像設定
   def default_url(*args)
