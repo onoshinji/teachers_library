@@ -48,7 +48,6 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    # params[:sort]がなければ新着順で表示する
     @posts = Post.where(kind: 'ワークシート').page(params[:page]).per(5)
     main_search
     tag_search

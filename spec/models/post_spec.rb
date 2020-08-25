@@ -107,6 +107,20 @@ RSpec.describe '投稿管理機能', type: :model do
      end
   end
 
+  describe '#unitカラム'  do
+     context '投稿を作成したとき'  do
+       it 'unitが空ならバリデーションが通らない' do
+         post = Post.new(title: 'title',
+                         content: 'content',
+                         subject:'国語',
+                         unit:'',
+                         grade:'１年生',
+                         kind:'ワークシート')
+         expect(post).not_to be_valid
+       end
+     end
+  end
+
   describe '' do
     context 'scopeメソッドで検索をした場合' do
       it "scopeメソッドで単元名あいまい検索ができる" do

@@ -20,22 +20,18 @@
     <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
   <% end %>
   <div class="field">
-    <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password",class: "form-control form-control-sm" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
-    <% end %>
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "new-password",class: "form-control form-control-sm",placeholder:"新パスワード(6字以上)" %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control form-control-sm"%>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control form-control-sm",placeholder:"新パスワード確認用"%>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes') %>)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password",class: "form-control form-control-sm" %>
+    <%= f.label :current_password %> <br />
+    <%= f.password_field :current_password, autocomplete: "current-password",class: "form-control form-control-sm",placeholder:"現在のパスワード" %>
   </div>
 
   <div class="actions">
