@@ -4,7 +4,6 @@ RSpec.describe '投稿管理機能', type: :system do
     @user1 = FactoryBot.create(:user1)
     @user2 = FactoryBot.create(:user2)
     @admin_user1 = FactoryBot.create(:admin_user1)
-    @Tag_post = FactoryBot.create(:post1, user: @user1)
     FactoryBot.create(:post1, user: @user2)
     FactoryBot.create(:post2, user: @admin_user1)
     FactoryBot.create(:post3, user: @user2)
@@ -87,84 +86,44 @@ RSpec.describe '投稿管理機能', type: :system do
     context '学年検索をした場合' do
       it "学年で検索できる" do
         visit worksheets_path
-        fill_in 'task_name_search', with: 'タスク'
+        select '１年生', from: 'grade_search'
         click_button '検索する'
-        expect('１年生').to eq 2？
+        expect(page).to have_content '１年生'
       end
     end
-    # context 'ステータス検索をした場合' do
-    #   it "ステータスで検索できる" do
-    #     visit tasks_path
-    #     @task = FactoryBot.create(:task, status: '未着手', user: @user2)
-    #     select '未着手', from: 'status_search'
-    #     click_button 'ステータス検索'
-    #     expect(@task.status).to have_content '未着手'
-    #   end
-    # end
-    # context 'タイトルとステータスのAND検索をした場合' do
-    #   it "タイトルとステータスでAND検索できる" do
-    #     visit tasks_path
-    #     @task = FactoryBot.create(:task, task_name: 'タスク1', status: '未着手', user: @user1)
-    #     @task = FactoryBot.create(:second_task, task_name: 'task2', status: '着手中', user: @user2)
-    #     @task = FactoryBot.create(:third_task, task_name: 'タスク3', status: '着手中', user: @admin_user)
-    #     fill_in 'task_name_search', with: 'タスク'
-    #     select '着手中', from: 'status_search'
-    #     click_button 'ステータス検索'
-    #     expect(page).to have_content 'タスク3'
-    #   end
-    # end
-    # context '複数のタスクを作成し、終了期限でソートした場合' do
-    #   it '終了期限が早い順でソートを選び、その順番に並んでいる' do
-    #     visit tasks_path
-    #     select '終了期限が早い順', from: 'time_limit_select'
-    #     @tasks = Task.order(time_limit: :ASC).pluck(:task_name)
-    #     expect(@tasks[0]).to have_content 'デフォルトタイトルone'
-    #     expect(@tasks[1]).to have_content 'デフォルトタイトルtwo'
-    #     expect(@tasks[2]).to have_content 'デフォルトタイトルthree'
-    #   end
-    #   it '終了期限が遅い順でソートを選び、その順番に並んでいる' do
-    #     visit tasks_path
-    #     select '終了期限が遅い順', from: 'time_limit_select'
-    #     @tasks = Task.order(time_limit: :DESC).pluck(:task_name)
-    #     expect(@tasks[0]).to have_content 'デフォルトタイトルthree'
-    #     expect(@tasks[1]).to have_content 'デフォルトタイトルtwo'
-    #     expect(@tasks[2]).to have_content 'デフォルトタイトルone'
-    #   end
-    # end
-    # context '複数のタスクを作成し、優先順位でソートした場合' do
-    #   it '優先順位が低い順でソートを選び、その順番に並んでいる' do
-    #     visit tasks_path
-    #     select '低', from: 'priority_select'
-    #     @tasks = Task.order(priority: :ASC).pluck(:priority)
-    #     expect(@tasks[0]).to have_content '低'
-    #     expect(@tasks[1]).to have_content '中'
-    #     expect(@tasks[2]).to have_content '高'
-    #   end
-    #   it '優先順位が高い順でソートを選び、その順番に並んでいる' do
-    #     visit tasks_path
-    #     select '高', from: 'priority_select'
-    #     @tasks = Task.order(priority: :DESC).pluck(:priority)
-    #     expect(@tasks[0]).to have_content '高'
-    #     expect(@tasks[1]).to have_content '中'
-    #     expect(@tasks[2]).to have_content '低'
-    #   end
-    # end
+    context '学年と教科で検索をした場合' do
+      it "学年と教科で検索できる" do
+        visit plans_path
+        select '６年生' , from: 'grade_search'
+        select '道徳', from: 'subject_search'
+        click_button '検索する'
+        expect(page).to have_content '星野くんの2塁打'
+      end
+    end
+    describe '種類別投稿表示テスト' do
+      before do
+        @posts = Post.where(kind: 'ワークシート')
+      end
+      context '複数の投稿を作成し、新着順でソートした場合' do
+        it '投稿した日時が早い順で並んでいる' do
+          visit worksheets_path
+          select '新着順', from: 'sort'
+          click_button '並び替え'
+          @posts = @posts.order(created_at: :DESC).pluck(:title)
+          expect(@posts[0]).to have_content 'title4'
+          expect(@posts[1]).to have_content 'title3'
+        end
+      end
+      context '複数の投稿を作成し、古い順でソートした場合' do
+        it '投稿した日時が古い順で並んでいる' do
+          visit worksheets_path
+          select '古い順', from: 'sort'
+          click_button '並び替え'
+          @posts = @posts.pluck(:title)
+          expect(@posts[0]).to have_content 'title1'
+          expect(@posts[1]).to have_content 'title2'
+        end
+      end
+    end
   end
-  #
-  # describe 'タスク詳細画面' do
-  #   context '任意のタスク詳細画面に遷移した場合' do
-  #     before do
-  #       visit new_user_registration_path
-  #       fill_in 'メールアドレス', with: 'user1@example.com'
-  #       fill_in 'パスワード', with: '00000000'
-  #       click_button 'ログイン'
-  #     end
-  #     it '該当タスクの内容が表示されたページに遷移する' do
-  #       @task = FactoryBot.create(:task, task_name: 'show', content: 'show_content', user: @user1)
-  #       visit task_path(@task.id)
-  #       expect(page).to have_content 'show'
-  #       expect(page).to have_content 'show_content'
-  #     end
-  #   end
-  # end
 end

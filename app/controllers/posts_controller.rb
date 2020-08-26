@@ -16,7 +16,7 @@ class PostsController < ApplicationController
       render :new
     else
       if @post.save
-        redirect_to edit_user_registration_path, notice: "ファイルを投稿しました"
+        redirect_to post_path(@post), notice: "ファイルを投稿しました"
         # ContactMailer.contact_mail(@post).deliver
       else
         render :new
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to posts_path, notice: "投稿を編集しました！"
+      redirect_to post_path(@post), notice: "投稿を編集しました！"
     else
       render :edit
     end
@@ -48,7 +48,6 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    # params[:sort]がなければ新着順で表示する
     @posts = Post.where(kind: 'ワークシート').page(params[:page]).per(5)
     main_search
     tag_search
@@ -56,7 +55,7 @@ class PostsController < ApplicationController
   end
 
   def findings
-    @posts = Post.where(kind: '所見例').page(params[:page]).per(5)
+    @posts = Post.where(kind: '所見例').page(params[:page]).per(10)
     main_search
     tag_search
     sort

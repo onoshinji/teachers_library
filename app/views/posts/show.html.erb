@@ -20,11 +20,6 @@
     <p><%= link_to '画像ダウンロード', download_post_path(@post) ,class: "btn btn-warning rounded-pill"%></p>
   <% end %>
 
-  <% unless @post.ms_office.url == nil %>
-    <p><%= link_to 'ファイルダウンロード', file_download_post_path(@post),class: "btn btn-warning rounded-pill" %></p>
-  <% else  %>
-    <p>この投稿にword,excelファイルはありません</p>
-  <% end %>
   <div id ="margin">
     <% unless @post.user_id == current_user.id %>
       <% if @favorite.present? %>
