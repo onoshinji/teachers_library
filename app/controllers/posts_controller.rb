@@ -79,13 +79,13 @@ class PostsController < ApplicationController
   end
 
   def file_download
-    if @post.file_type == "application_csv"
+    # ファイル種類によって、処理を分ける
+    if @post.ms_office.file.extension == "csv"
       url = URI.encode(@post.ms_office.url)
       data_path = open(url)
       send_data data_path.read, disposition: 'attachment',
       filename: "download_file.csv", type: @post.file_type
-      
-    elsif @post.file_type == "application_pdf"
+    elsif @post.ms_office.file.extension == "pdf"
       url = URI.encode(@post.ms_office.url)
       data_path = open(url)
       send_data data_path.read, disposition: 'attachment',

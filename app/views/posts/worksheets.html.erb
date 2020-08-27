@@ -56,6 +56,9 @@
           <% @posts.each do |post| %>
           <p><span><%= "No. #{post.id}" %></span>
           <%= post.grade %><%= post.subject %><%= post.unit %>
+          <% unless post.ms_office.url == nil%>
+            <i class="fa fa-file-text"></i>
+          <% end %>
           <span><i class="fa fa-binoculars"></i><%= post.views_count %></span>
           <span><i class="fa fa-heart"></i><%= post.favorites.count %></span>
           <% post.tags.each do |tag| %>
