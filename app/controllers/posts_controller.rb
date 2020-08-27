@@ -74,7 +74,8 @@ class PostsController < ApplicationController
   def download
     url = URI.encode(@post.image.url)
     data_path = open(url)
-    send_data data_path.read, disposition: 'attachment', type: @post.image_type
+    send_data data_path.read, disposition: 'attachment',
+    filename: @post.image_name, type: @post.image_type
   end
 
   def file_download
