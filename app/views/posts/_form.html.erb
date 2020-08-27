@@ -36,11 +36,11 @@
           <%= form.file_field :image%>
           <%= form.hidden_field :image_cache %>
           </div>
-          <%# <div>
-            <i class="fa fa-file"></i>
+          <div>
+          <i class="fa fa-file"></i>
           <%= form.label :wordexcelはこちら %>
-          <%# <%= form.file_field :ms_office %>
-          <%# </div> %>
+          <%= form.file_field :ms_office %>
+          </div>
           <%= form.label :経験年数別タグ %>
           <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
           <div class="actions">
