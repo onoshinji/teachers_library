@@ -83,7 +83,7 @@ class PostsController < ApplicationController
     data_path = open(url)
     # この段階ではおそらくcsvファイルがエンコードされているため、ダウンロードするときに、decodeしないといけない可能性
     send_data data_path.read, disposition: 'attachment',
-    filename: "download_file.csv", type: @post.file_type
+    filename: "download_file.#{@post.file_type}", type: @post.file_type
   end
 
   private
