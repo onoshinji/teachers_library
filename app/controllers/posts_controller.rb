@@ -75,15 +75,22 @@ class PostsController < ApplicationController
     url = URI.encode(@post.image.url)
     data_path = open(url)
     send_data data_path.read, disposition: 'attachment',
-    filename: "download_image", type: @post.image_type
+    filename: "download_image.jpg", type: @post.image_type
   end
 
   def file_download
-    url = URI.encode(@post.ms_office.url)
-    data_path = open(url)
-    # この段階ではおそらくcsvファイルがエンコードされているため、ダウンロードするときに、decodeしないといけない可能性
-    send_data data_path.read, disposition: 'attachment',
-    filename: "download_file", type: @post.file_type
+    # ファイル種類によって、処理を分ける
+    if @post.ms_office.file.extension == "csv"
+      url = URI.encode(@post.ms_office.url)
+      data_path = open(url)
+      send_data data_path.read, disposition: 'attachment',
+      filename: "download_file.csv", type: @post.file_type
+    elsif @post.ms_office.file.extension == "pdf"
+      url = URI.encode(@post.ms_office.url)
+      data_path = open(url)
+      send_data data_path.read, disposition: 'attachment',
+      filename: "download_file.pdf", type: @post.file_type
+    end
   end
 
   private

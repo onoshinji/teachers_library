@@ -9,7 +9,7 @@ class ExcelAndWordUploader < CarrierWave::Uploader::Base
   end
 
   def extension_whitelist
-    %w(doc docx csv xls xlsm pdf)
+    %w(csv pdf)
   end
 
   def filename
