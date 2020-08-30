@@ -20,7 +20,7 @@
   <% end %>
 
   <% unless @post.ms_office.url == nil%>
-    <p><%= link_to 'ファイルダウンロード', file_download_post_path(@post) ,class: "btn btn-warning rounded-pill"%></p>
+    <p><%= link_to "#{@post.ms_office.file.extension}ダウンロード", file_download_post_path(@post) ,class: "btn btn-warning rounded-pill"%></p>
   <% else %>
     ファイルはありません
   <% end %>
