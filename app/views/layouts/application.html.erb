@@ -19,8 +19,6 @@
             <%= link_to "ワークシート", worksheets_path %>
             <i class="fa fa-file"></i>
             <%= link_to "指導案",plans_path %>
-            <i class="fa fa-file"></i>
-            <%= link_to "所見例", findings_path %>
             <% if user_signed_in? %>
             <%= link_to  "管理者ページ", rails_admin_path ,id: "admin_font" if current_user.admin == true%>
               <%= "ログイン中: #{current_user.name}さん" %>

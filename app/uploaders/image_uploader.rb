@@ -10,7 +10,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-  process convert: "jpg" #追記
+
   process :resize_to_limit => [800,600]
   # ユーザー画像アップローダー分離のため、必要としなくなった
   # version :user_thumb do
