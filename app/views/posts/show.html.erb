@@ -13,6 +13,7 @@
   <% end %>
   <% end %>
   <p><%= image_tag @post.image.url %></p>
+  <p><%= @post.image.filename %></p>
   <% if @post.image.url == "default.jpg"%>
     <p>画像はありません</p>
   <% else %>
