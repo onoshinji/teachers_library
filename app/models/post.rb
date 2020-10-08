@@ -30,7 +30,6 @@ class Post < ApplicationRecord
   def image_type
     self.image.content_type
   end
-  #
 
   #ms_officeダウンロードに関連したメソッドの定義
   def file_name
