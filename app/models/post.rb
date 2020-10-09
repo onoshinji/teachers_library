@@ -20,7 +20,8 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :user
   # いいね機能
-
+  has_many :likes
+  has_many :liked_users, through: :likes, source: :user
   #imageダウンロードに関連したメソッドの定義
   # file_name => image_name
   def image_name

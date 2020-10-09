@@ -5,6 +5,13 @@
   <span><%= "No.#{@post.id}" %></span>
   <span><i class="fa fa-binoculars"></i><%= @post.views_count %></span>
   <span><i class="fa fa-heart"></i><%= @post.favorites.count %></span>
+  <span>いいね件数: <%= @post.likes.count %></span>
+  <% if current_user.already_liked?(@post) %>
+    <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete %>
+  <% else %>
+    <%= button_to 'いいね', post_likes_path(@post) %>
+  <% end %>
+
   <% if  @tag_count >=1 %>
     <% @post.tags.each do |tag| %>
       <span class= 'btn btn-info btn-sm rounded-pill'>
