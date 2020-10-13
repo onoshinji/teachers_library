@@ -1,0 +1,8 @@
+i = 0
+
+a= [1,2,3,4,5]
+if a.inject > 0
+  a.each do |num|
+    puts num
+  end
+end

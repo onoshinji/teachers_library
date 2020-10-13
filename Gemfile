@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 gem 'font-awesome-rails'
 # aws-sdkは使わなくなった
+gem 'rubocop', require: false
 gem 'aws-sdk'
 gem 'foreman'
 gem 'webpacker'
