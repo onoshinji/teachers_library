@@ -141,6 +141,11 @@ class PostsController < ApplicationController
         @posts = @posts.order(views_count: :DESC)
       elsif params[:sort] == 'old'
         @posts = @posts.order(created_at: :ASC)
+      elsif params[:sort] == 'favorites'
+        @posts = @posts.select('posts.*', 'count(favorites.id) AS favs')
+                       .left_joins(:favorites)
+                       .group('posts.id')
+                       .order('favs desc')
       end
     end
   end
