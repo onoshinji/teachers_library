@@ -40,6 +40,7 @@ class PostsController < ApplicationController
     @favorite = current_user.favorites.find_by(post_id: @post.id)
     @post.views_count += 1
     @post.save
+    @like = Like.new
   end
 
   def destroy
@@ -75,7 +76,7 @@ class PostsController < ApplicationController
     url = URI.encode(@post.image.url)
     data_path = open(url)
     send_data data_path.read, disposition: 'attachment',
-    filename: "download_image.jpg", type: @post.image_type
+    type: @post.image_type
   end
 
   def file_download
@@ -140,6 +141,11 @@ class PostsController < ApplicationController
         @posts = @posts.order(views_count: :DESC)
       elsif params[:sort] == 'old'
         @posts = @posts.order(created_at: :ASC)
+      elsif params[:sort] == 'favorites'
+        @posts = @posts.select('posts.*', 'count(favorites.id) AS favs')
+                       .left_joins(:favorites)
+                       .group('posts.id')
+                       .order('favs desc')
       end
     end
   end

@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   root to: "posts#index"
   resources :favorites, only: [:new, :index, :create, :destroy]
   resources :posts do
+    resources :likes, only: [:create, :destroy]
     member do
       get :download
       get :file_download
     end
   end
+
   get :about, to: 'posts#about'
   get :worksheets, to: 'posts#worksheets'
   get :findings, to: 'posts#findings'

@@ -20,7 +20,8 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :user
   # いいね機能
-
+  has_many :likes
+  has_many :liked_users, through: :likes, source: :user
   #imageダウンロードに関連したメソッドの定義
   # file_name => image_name
   def image_name
@@ -30,7 +31,6 @@ class Post < ApplicationRecord
   def image_type
     self.image.content_type
   end
-  #
 
   #ms_officeダウンロードに関連したメソッドの定義
   def file_name
@@ -47,5 +47,5 @@ class Post < ApplicationRecord
   enum subject: { 国語: 1, 社会: 2, 算数: 3, 理科: 4, 生活: 5,
                   音楽: 6 , 図画工作: 7, 家庭: 8, 体育: 9,
                   道徳: 10, 総合: 11, 特別活動: 12, 外国語活動: 13}
-  enum kind: {ワークシート: 1, 指導案: 2, 所見例: 3,}
+  enum kind: {ワークシート: 1, 指導案: 2}
 end

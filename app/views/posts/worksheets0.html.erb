@@ -45,7 +45,7 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h4></h4><h3 id="title_font">ワークシート</h3>
             <%= form_with  url: worksheets_path, method: :get, local: true do |form| %>
-              <%= form.select :sort,{'新着順': 'new', '古い順': 'old', '閲覧数順': 'view', 'お気に入り順': 'favorites'},
+              <%= form.select :sort,{'新着順': 'new', '古い順': 'old', '閲覧数順': 'view',},
                                     { include_blank: '',},
                                     { id: 'sort' , required: true } %>
               <%= form.submit '並び替え'%>
@@ -68,7 +68,16 @@
           <% end %></p>
             <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
           <% end %>
-
+          <div class="col-lg-4">
+  <div class="card">
+    <img class="card-img-top" src="images/notepc-wp.jpeg" alt="ライトコースのイメージ画像">
+      <div class="card-body">
+        <h4 class="card-title">ライトコース</h4>
+        <p class="card-text">ホームページ・ブログ開設など基礎を身に付けたい方向けコースです。</p>
+        <a href="#" class="btn btn-primary">詳細を見る</a>
+      </div>
+    </div>
+  </div>
         <p><%= paginate @posts %></p>
     </main>
   </div>
