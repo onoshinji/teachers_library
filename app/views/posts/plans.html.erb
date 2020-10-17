@@ -17,15 +17,19 @@
             <%= form.label :教科 %>
             <%= form.select :subject_search, Post.subjects.keys, include_blank: "指定しない" %>
             </div>
-            <div class="unit_search">
-              <%= form.label :単元 %>
-              <%= form.text_field :unit_search , class: "form-control form-control-sm"%>
+            <div class="col-row">
+              <div class="col-12">
+                <div class="unit_search">
+                  <%= form.label :単元 %>
+                  <%= form.text_field :unit_search , class: "form-control form-control-sm"%>
+                </div>
+              </div>
             </div>
-              <%= form.submit '検索する', name: nil %>
+              <%= form.submit '検索する', name: nil , class: 'btn btn-primary btn-sm'%>
             <% end %>
             <%= form_with url: plans_path, method: :get, local: true do |form| %>
               <%= form.select("tag_id", Tag.pluck(:name, :id), { include_blank: true }) %>
-              <%= form.submit 'タグ検索', name: nil , class: 'btn btn-primary btn-sm'%>
+              <%= form.submit 'タグ検索', name: nil , class: 'btn btn-info btn-sm'%>
             <% end %>
           </li>
           <br>
@@ -42,13 +46,13 @@
     </nav>
     <!-- 画面右側に表示されるコンテンツ -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h4></h4><h3 id="title_font">指導案</h3>
             <%= form_with  url: plans_path, method: :get, local: true do |form| %>
             <%= form.select :sort,{'新着順': 'new', '古い順': 'old', '閲覧数順': 'view', 'お気に入り順': 'favorites'},
                                     { include_blank: '',},
                                     { id: 'sort' , required: true } %>
-              <%= form.submit '並び替え'%>
+              <%= form.submit '並び替え' ,class: 'btn btn-success btn-sm'%>
             <% end %>
       </div>
       <p id="notice"><%= notice %></p>

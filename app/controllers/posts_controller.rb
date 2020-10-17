@@ -49,21 +49,21 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    @posts = Post.where(kind: 'ワークシート').page(params[:page]).per(5)
+    @posts = Post.includes(:tags, :favorites).where(kind: 'ワークシート').page(params[:page]).per(5)
     main_search
     tag_search
     sort
   end
 
   def findings
-    @posts = Post.where(kind: '所見例').page(params[:page]).per(10)
+    @posts = Post.includes(:tags, :favorites).where(kind: '所見例').page(params[:page]).per(10)
     main_search
     tag_search
     sort
   end
 
   def plans
-    @posts = Post.where(kind: '指導案').page(params[:page]).per(5)
+    @posts = Post.includes(:tags, :favorites).where(kind: '指導案').page(params[:page]).per(5)
     main_search
     tag_search
     sort
