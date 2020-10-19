@@ -2,6 +2,7 @@
   "name": "teachers_library",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@rails/webpacker": "5.2.1",
     "bootstrap": "4",
     "jquery": "^3.5.1",

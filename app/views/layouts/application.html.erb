@@ -9,16 +9,18 @@
 </head>
 <header>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 " href="#">
-        <span><%= link_to "Home", posts_path %></span>
-        <span><%= link_to "About", about_path %></span>
-        <span><%= link_to "ワークシート", worksheets_path %></span>
-        <span><%= link_to "指導案",plans_path %></span>
-        <span><%= link_to "所見例", findings_path %></span></a>
+    <%= link_to "先生の図書館", posts_path ,class: "navbar-brand col-sm-3 col-m " %>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
           <div class="text-left header_text">
+            <i class="fa fa-pencil"></i>
+            <%= link_to "About", about_path %>
+            <i class="fa fa-file"></i>
+            <%= link_to "ワークシート", worksheets_path %>
+            <i class="fa fa-file"></i>
+            <%= link_to "指導案",plans_path %>
             <% if user_signed_in? %>
+            <%= link_to  "管理者ページ", rails_admin_path ,id: "admin_font" if current_user.admin == true%>
               <%= "ログイン中: #{current_user.name}さん" %>
               <% if current_user.image.url.present? %>
                 <%= link_to image_tag(current_user.image.url(:user_thumb)), edit_user_registration_path(current_user.id) %>

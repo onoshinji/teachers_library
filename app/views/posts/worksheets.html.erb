@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
 <!-- 画面左側サイドバー -->
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav class="col-md-2 d-none d-md-block sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -17,19 +17,24 @@
             <%= form.label :教科 %>
             <%= form.select :subject_search, Post.subjects.keys, include_blank: "指定しない" %>
             </div>
-            <div class="unit_search">
-              <%= form.label :単元 %>
-              <%= form.text_field :unit_search %>
+            <div class="col-row">
+              <div class="col-12">
+                <div class="unit_search">
+                  <%= form.label :単元 %>
+                  <%= form.text_field :unit_search , class: "form-control form-control-sm"%>
+                </div>
+              </div>
             </div>
-              <%= form.submit '検索する', name: nil %>
+              <%= form.submit '検索する', name: nil , class: 'btn btn-primary btn-sm'%>
             <% end %>
             <%= form_with url: worksheets_path, method: :get, local: true do |form| %>
               <%= form.select("tag_id", Tag.pluck(:name, :id), { include_blank: true }) %>
-              <%= form.submit 'タグ検索', name: nil %>
+              <%= form.submit 'タグ検索', name: nil , class: 'btn btn-info btn-sm'%>
             <% end %>
           </li>
+          <br>
           <li class="nav-item">
-            <%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary' %>
+            <%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary btn-lg' %>
           </li>
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -41,27 +46,33 @@
     </nav>
     <!-- 画面右側に表示されるコンテンツ -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h4>ワークシート</h4>
-          <div class="btn-group mr-2">
-          </div>
-            <%= form_with  url: worksheets_path, method: :get, local: true do |form| %>
-              <%= form.select :sort,{'新着順': 'new_arrival', '閲覧数順': 'view',},
-                                    { include_blank: '',},
-                                    { id: 'sort' , required: true } %>
-              <%= form.submit '並び替え'%>
-            <% end %>
-      </div>
-        <p id="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-          <% @posts.each do |post| %>
-            <p><span><%= "No. #{post.id}" %></span>
-            <%= post.grade %><%= post.subject %><%= post.unit %>
-            <span>閲覧数: <%= post.views_count %></span>
-          <span>お気に入り件数<%= post.favorites.count %></span></p>
-            <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
+      <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h4></h4><h3 id="title_font">ワークシート</h3>
+          <%= form_with  url: worksheets_path, method: :get, local: true do |form| %>
+            <%= form.select :sort,{'新着順': 'new', '古い順': 'old', '閲覧数順': 'view', 'お気に入り順': 'favorites'},
+                                  { include_blank: '',},
+                                  { id: 'sort' , required: true } %>
+            <%= form.submit '並び替え' ,class: 'btn btn-success btn-sm'%>
           <% end %>
-          <p><%= paginate @posts %></p>
+      </div>
+      <p id="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+        <% @posts.each do |post| %>
+        <p><span><%= "No. #{post.id}" %></span>
+        <%= post.grade %><%= post.subject %><%= post.unit %>
+        <% unless post.ms_office.url == nil%>
+          <i class="fa fa-file-text"></i>
+        <% end %>
+        <span><i class="fa fa-binoculars"></i><%= post.views_count %></span>
+        <span><i class="fa fa-heart"></i><%= post.favorites.count %></span>
+        <% post.tags.each do |tag| %>
+          <span class= 'btn btn-info btn-sm rounded-pill'>
+            <%= tag.name %>
+          </span>
+        <% end %></p>
+          <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
+        <% end %>
+        <p><%= paginate @posts %></p>
     </main>
   </div>
 </div>

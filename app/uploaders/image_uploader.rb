@@ -1,16 +1,21 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :fog
-  # storage :fog
+
+  if Rails.env.development? || Rails.env.test?
+    storage :file
+  else
+    storage :fog
+  end
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   process :resize_to_limit => [800,600]
-
-  version :user_thumb do
-    process resize_to_fit: [40, 40]
-  end
+  # ユーザー画像アップローダー分離のため、必要としなくなった
+  # version :user_thumb do
+  #   process resize_to_fit: [40, 40]
+  # end
   version :thumb do
     process resize_to_fit: [240, 180]
   end
@@ -20,20 +25,18 @@ class ImageUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
   # デフォルト画像設定
-  def default_url(*args)
+  def default_url(*)
     "default.jpg"
   end
 
-  # Process files as they are uploaded:
-  # process scale: [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  # セキュアランダムuuidを用いてファイルをランダム名で保存する。filenameメソッドの記述だけではうまくいかない
+  def filename
+    "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+  end
+
 end

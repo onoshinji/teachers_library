@@ -1,6 +1,10 @@
 class UserUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :fog
+  if Rails.env.development? || Rails.env.test?
+    storage :file
+  else
+    storage :fog
+  end
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -13,8 +17,6 @@ class UserUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [240, 180]
   end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
   def extension_whitelist
     %w(jpg jpeg gif png)
   end
@@ -23,4 +25,12 @@ class UserUploader < CarrierWave::Uploader::Base
     "user.jpg"
   end
 
+  def filename
+    "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
+
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+  end
 end

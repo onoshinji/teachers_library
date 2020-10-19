@@ -1,17 +1,7 @@
 Rails.application.configure do
-  # メール送信用の記述
-  config.action_mailer.default_url_options = { host: 'http://54.150.129.112/' }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  :address => "smtp.gmail.com",
-  :port => 587,
-  :user_name => "yjsnpi555@gmail.com",
-  :password => "hcsiumxxrfgagypu",
-  :authentication => :plain,
-  :enable_starttls_auto => true
-  }
   config.cache_classes = true
   config.eager_load = true
+  # エラ〜メッセージを表示する際にはconsider_all_requests_localをfalseにする
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
@@ -57,7 +47,17 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "teachers_library_#{Rails.env}"
-
+  # メール送信用の記述
+  config.action_mailer.default_url_options = { host: 'http://18.177.214.34/' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :address => "smtp.gmail.com",
+  :port => 587,
+  :user_name => "yjsnpi555@gmail.com",
+  :password => "hcsiumxxrfgagypu",
+  :authentication => :plain,
+  :enable_starttls_auto => true
+  }
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.

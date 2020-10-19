@@ -3,6 +3,8 @@ class User < ApplicationRecord
   :recoverable, :rememberable, :validatable #:omniauthable,
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
   mount_uploader :image, UserUploader
   before_validation { email.downcase! }
   validates :name,  presence: true, length: { maximum: 20 }
@@ -16,5 +18,9 @@ class User < ApplicationRecord
       user.name = "ゲスト"
       user.confirmed_at = Time.now  # Confirmable を使用している場合は必要
     end
+  end
+
+  def already_liked?(post)
+    self.likes.exists?(post_id: post.id)
   end
 end

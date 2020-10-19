@@ -1,0 +1,23 @@
+ body {
+  color: white;
+  text-align: center;
+  align-items: center;
+  background-image: image-url("room.jpg");
+  background-size: cover;
+  font-size: .875rem;
+  padding-top: 2.5rem;
+}
+
+html {
+  position:relative;
+  min-height: 100%;
+}
+
+#error_explanation{
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.fa-file-text{
+  color: #a3d1ff;
+}

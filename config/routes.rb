@@ -3,10 +3,14 @@ Rails.application.routes.draw do
   root to: "posts#index"
   resources :favorites, only: [:new, :index, :create, :destroy]
   resources :posts do
+    resources :comments, only: [:new, :create]
+    resources :likes, only: [:create, :destroy]
     member do
       get :download
+      get :file_download
     end
   end
+
   get :about, to: 'posts#about'
   get :worksheets, to: 'posts#worksheets'
   get :findings, to: 'posts#findings'
@@ -19,6 +23,5 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener"
-
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

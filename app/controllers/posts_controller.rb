@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
                                     :destroy, :worksheets, :findings, :plans, :about]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
+  before_action :ensure_correct_user, only:[:edit,:destroy,]
   def index
   end
 
@@ -15,7 +16,7 @@ class PostsController < ApplicationController
       render :new
     else
       if @post.save
-        redirect_to posts_path, notice: "ファイルを投稿しました"
+        redirect_to post_path(@post), notice: "ファイルを投稿しました"
         # ContactMailer.contact_mail(@post).deliver
       else
         render :new
@@ -28,16 +29,18 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to posts_path, notice: "投稿を編集しました！"
+      redirect_to post_path(@post), notice: "投稿を編集しました！"
     else
       render :edit
     end
   end
 
   def show
+    @tag_count = @post.tags.count
     @favorite = current_user.favorites.find_by(post_id: @post.id)
     @post.views_count += 1
     @post.save
+    @like = Like.new
   end
 
   def destroy
@@ -46,22 +49,21 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    @posts = Post.where(kind: 'ワークシート').page(params[:page]).per(5)
+    @posts = Post.includes(:tags, :favorites).where(kind: 'ワークシート').page(params[:page]).per(5)
     main_search
     tag_search
     sort
   end
 
   def findings
-    @posts = Post.where(kind: '所見例').page(params[:page]).per(5)
+    @posts = Post.includes(:tags, :favorites).where(kind: '所見例').page(params[:page]).per(10)
     main_search
     tag_search
     sort
   end
 
   def plans
-    @posts = Post.all.page(params[:page]).per(5) #ここでは、テストのために、Post.allを仮で入れてすべての種類のファイルを表示するようにしている。実装では下記の表記になおす
-    # @posts = Post.where(kind: '指導案')
+    @posts = Post.includes(:tags, :favorites).where(kind: '指導案').page(params[:page]).per(5)
     main_search
     tag_search
     sort
@@ -69,13 +71,27 @@ class PostsController < ApplicationController
   def about
   end
 
-  # S3からのダウンロード
+  # S3からの画像ダウンロード
   def download
-    @post = Post.find(download_params[:id])
-    
-    data = open(URI.encode(@post.image.url))
-    send_data data.read, disposition: 'attachment',
-    filename: @post.file_name, type: @post.content_type
+    url = URI.encode(@post.image.url)
+    data_path = open(url)
+    send_data data_path.read, disposition: 'attachment',
+    type: @post.image_type
+  end
+
+  def file_download
+    # ファイル種類によって、処理を分ける
+    if @post.ms_office.file.extension == "csv"
+      url = URI.encode(@post.ms_office.url)
+      data_path = open(url)
+      send_data data_path.read, disposition: 'attachment',
+      filename: "download_file.csv", type: @post.file_type
+    elsif @post.ms_office.file.extension == "pdf"
+      url = URI.encode(@post.ms_office.url)
+      data_path = open(url)
+      send_data data_path.read, disposition: 'attachment',
+      filename: "download_file.pdf", type: @post.file_type
+    end
   end
 
   private
@@ -83,9 +99,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def download_params
-    params.permit(:id)
-  end
   def post_params
     params.require(:post).permit(:title,
       :content,
@@ -122,10 +135,17 @@ class PostsController < ApplicationController
   # ソート機能
   def sort
     if params[:sort].present?
-      if params[:sort] == 'new_arrival'
+      if params[:sort] == 'new'
         @posts = @posts.order(created_at: :DESC)
       elsif params[:sort] == 'view'
         @posts = @posts.order(views_count: :DESC)
+      elsif params[:sort] == 'old'
+        @posts = @posts.order(created_at: :ASC)
+      elsif params[:sort] == 'favorites'
+        @posts = @posts.select('posts.*', 'count(favorites.id) AS favs')
+                       .left_joins(:favorites)
+                       .group('posts.id')
+                       .order('favs desc')
       end
     end
   end
