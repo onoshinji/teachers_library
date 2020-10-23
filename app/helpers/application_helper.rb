@@ -17,4 +17,10 @@ module ApplicationHelper
       redirect_to root_path, notice: "あなたは管理者ではありません"
     end
   end
+
+  def page_title(page_title = '')
+    base_title = 'teachers_library'
+    # 三項演算子による記述。?以降に真の場合の表記。:以降に偽の表記。
+    page_title.empty? ? base_title : page_title + ' | ' + base_title
+  end
 end
