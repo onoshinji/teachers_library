@@ -75,7 +75,7 @@ FactoryBot.define do
     subject { '総合' }
     unit { '影絵' }
     grade { '１年生' }
-    kind { '所見例' }
+    kind { 'ワークシート' }
     association :user
   end
   factory :post9, class: Post do
@@ -84,7 +84,7 @@ FactoryBot.define do
     subject { '特別活動' }
     unit { '学級討論会' }
     grade { '１年生' }
-    kind { '所見例' }
+    kind { 'ワークシート' }
     association :user
   end
 end

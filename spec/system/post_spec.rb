@@ -75,13 +75,6 @@ RSpec.describe '投稿管理機能', type: :system do
         expect(page).to have_content '絵具'
       end
     end
-    context '所見例の投稿を作成した場合' do
-      it '作成済みのタスクが表示される' do
-        visit findings_path
-        expect(page).to have_content '影絵'
-        expect(page).to have_content '学級討論会'
-      end
-    end
 
     context '学年検索をした場合' do
       it "学年で検索できる" do
@@ -110,8 +103,7 @@ RSpec.describe '投稿管理機能', type: :system do
           select '新着順', from: 'sort'
           click_button '並び替え'
           @posts = @posts.order(created_at: :DESC).pluck(:title)
-          expect(@posts[0]).to have_content 'title4'
-          expect(@posts[1]).to have_content 'title3'
+          expect(@posts[0]).to have_content 'title9'
         end
       end
       context '複数の投稿を作成し、古い順でソートした場合' do
