@@ -34,9 +34,6 @@
             <% end %>
           </li>
           <br>
-          <li class="nav-item">
-            <%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary' %>
-          </li>
         </ul>
       </div>
     </nav>
@@ -44,7 +41,7 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h4></h4>
-        <h3 id="title_font">ワークシート</h3>
+        <h4 id="title_font">ワークシート</h4>
           <%= form_with  url: worksheets_path, method: :get, local: true do |form| %>
             <%= form.select :sort,{'新着順': 'new', '古い順': 'old', '閲覧数順': 'view', 'お気に入り順': 'favorites'},
                                   { include_blank: '',},

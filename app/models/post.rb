@@ -1,11 +1,8 @@
 class Post < ApplicationRecord
-  validates :title,  presence: true, length: { maximum: 100 }
-  validates :content, presence: true, length: { maximum: 500 }
-  # validates :image, presence: true, imageカラムが空の場合も想定されたため
+  validates :image, presence: true
   validates :grade, presence: true
   validates :subject, presence: true
   validates :unit, presence: true
-  validates :kind, presence: true
   #検索機能のためのscope
   # ファイルの種類はページ遷移時に取得するので、type_searchは使用しなくなった
   # scope :type_search, -> (type_search) { where(type: type_search)}
@@ -20,7 +17,7 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :user
   # いいね機能
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
   #imageダウンロードに関連したメソッドの定義
   # file_name => image_name
@@ -47,5 +44,5 @@ class Post < ApplicationRecord
   enum subject: { 国語: 1, 社会: 2, 算数: 3, 理科: 4, 生活: 5,
                   音楽: 6 , 図画工作: 7, 家庭: 8, 体育: 9,
                   道徳: 10, 総合: 11, 特別活動: 12, 外国語活動: 13}
-  enum kind: {ワークシート: 1, 指導案: 2}
+  # enum kind: {ワークシート: 1, 指導案: 2}
 end

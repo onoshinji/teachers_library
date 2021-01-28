@@ -3,10 +3,8 @@
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
         <div class="text-left header_text">
-          <i class="fa fa-file"></i>
-          <%= link_to "ワークシート", worksheets_path %>
-          <i class="fa fa-file"></i>
-          <%= link_to "指導案",plans_path %>
+          <%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary btn-sm rounded-pill' %>
+          <%= link_to "ワークシートを探す", worksheets_path ,class: 'btn btn-primary btn-sm rounded-pill' %>
           <% if user_signed_in? %>
           <%= link_to  "管理者ページ", rails_admin_path ,id: "admin_font" if current_user.admin == true%>
             <%= "ログイン中: #{current_user.name}さん" %>

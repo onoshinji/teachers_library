@@ -1,7 +1,5 @@
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-<p>タイトル: <%= @post.title %></p>
-<p>内容: <%= @post.content %></p>
 <span><%= "No.#{@post.id}" %></span>
 <span><i class="fa fa-binoculars"></i><%= @post.views_count %></span>
 <span><i class="fa fa-heart"></i><%= @post.favorites.count %></span>
@@ -27,11 +25,10 @@
   <p><%= link_to '画像ダウンロード', download_post_path(@post) ,class: "btn btn-warning rounded-pill"%></p>
 <% end %>
 
-<% unless @post.ms_office.url == nil%>
-  <p><%= link_to "#{@post.ms_office.file.extension}ダウンロード", file_download_post_path(@post) ,class: "btn btn-warning rounded-pill"%></p>
-<% else %>
-  ファイルはありません
-<% end %>
+<%# <% unless @post.ms_office.url == nil%>
+<%# <% else %>
+  <%# ファイルはありません %>
+<%# <% end %>
 <div id ="margin">
   <% unless @post.user_id == current_user.id %>
     <% if @favorite.present? %>
@@ -41,7 +38,6 @@
     <% end %>
   <% end %>
 </div>
-<%= link_to '新しく投稿する', new_post_path ,class: 'btn btn-primary btn-sm'%>
 <% if current_user == @post.user %>
 <div id ="margin">
 <%= link_to "投稿を編集する", edit_post_path(@post.id), data: { confirm: '本当に編集していいですか？' } ,class: 'btn btn-primary btn-sm'%>
