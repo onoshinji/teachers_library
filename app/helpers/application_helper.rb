@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def page_title(page_title = '')
-    base_title = 'teachers_library'
+    base_title = '先生の教材'
     # 三項演算子による記述。?以降に真の場合の表記。:以降に偽の表記。
     page_title.empty? ? base_title : page_title + ' | ' + base_title
   end
