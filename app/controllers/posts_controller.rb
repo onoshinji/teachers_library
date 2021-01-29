@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    @posts = Post.includes(:tags, :favorites).where(kind: 'ワークシート').page(params[:page]).per(5)
+    @posts = Post.includes(:tags, :favorites).where(kind: 'ワークシート').page(params[:page]).per(18)
     main_search
     tag_search
     sort
@@ -68,8 +68,8 @@ class PostsController < ApplicationController
     tag_search
     sort
   end
-  def about
-  end
+  # def about
+  # end
 
   # S3からの画像ダウンロード
   def download
