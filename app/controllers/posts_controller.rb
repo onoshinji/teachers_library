@@ -55,19 +55,19 @@ class PostsController < ApplicationController
     sort
   end
 
-  def findings
-    @posts = Post.includes(:tags, :favorites).where(kind: '所見例').page(params[:page]).per(10)
-    main_search
-    tag_search
-    sort
-  end
-
-  def plans
-    @posts = Post.includes(:tags, :favorites).where(kind: '指導案').page(params[:page]).per(5)
-    main_search
-    tag_search
-    sort
-  end
+  # def findings
+  #   @posts = Post.includes(:tags, :favorites).where(kind: '所見例').page(params[:page]).per(10)
+  #   main_search
+  #   tag_search
+  #   sort
+  # end
+  #
+  # def plans
+  #   @posts = Post.includes(:tags, :favorites).where(kind: '指導案').page(params[:page]).per(5)
+  #   main_search
+  #   tag_search
+  #   sort
+  # end
   # def about
   # end
 
