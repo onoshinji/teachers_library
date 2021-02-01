@@ -6,7 +6,6 @@
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
       <li class="nav-item">
-
           <%= form_with url: worksheets_path, method: :get, local: true do |form| %>
           <div class="grade_search">
           <span data-feather="file"></span>
@@ -50,15 +49,14 @@
 
         <div class="row">
           <% @posts.each do |post| %>
-          <div class="card" style="width: 15rem;">
+          <div class="card" style="width: 22rem;">
             <div class="card-body">
-              <p class="card-text">
+              <div class="card-header" style="width: 100%">
                 <span><%= "No. #{post.id}" %></span>
                 <%= post.grade %><%= post.subject %><%= "  #{post.unit}" %>
-              </p>
-              <h4 class="bd-placeholder-img card-img-top" width="100%">
+              </div>
+              <img class="bd-placeholder-img card-img-top" width="100%">
                 <%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %>
-              </h4>
                 <ul class="list-inline">
                   <li class="list-inline-item">
                     <span><i class="fa fa-binoculars"></i><%= post.views_count %></span>
