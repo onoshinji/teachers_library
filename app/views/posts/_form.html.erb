@@ -19,7 +19,6 @@
 
           <%= form.label :教科 %>
           <%= form.select :subject, Post.subjects.keys, selected: 1 %>
-
           <!-- <p><%= form.label :種類 %> -->
           <%# <%= form.select :kind, Post.kinds.keys, include_blank: "選択してください" %>
           <div>
@@ -29,7 +28,6 @@
           <br>
           <div>
             <% form.label :ワークシート画像 %>
-
             <%= form.file_field :image, onchange: 'previewImage()', class: 'form-control mb-3', accept: 'image/*' %>
             <%= form.hidden_field :image_cache %>
             <p> jpg jpeg gif png形式可 </p>
@@ -41,9 +39,9 @@
             </div>
           </div>
           <div id="post_form">
+          <i class="fa fa-tags "></i>
           <%= form.label :タグ %>
           <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
-
           <!-- <i class="fa fa-file"></i> -->
           <%# <%= form.label :pdfcsvはこちら %>
           <%# <%= form.file_field :ms_office %>
@@ -53,9 +51,4 @@
         <% end %>
         </div>
       </div>
-      <!-- <div class="col-9">
-        <div class="main_contents">
-          <%# <%= yield %> %>
-        </div>
-      </div> -->
     </div>
