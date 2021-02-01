@@ -40,7 +40,7 @@ class Post < ApplicationRecord
   mount_uploader :ms_office, ExcelAndWordUploader
   mount_uploader :image, ImageUploader
   # enum集
-  enum grade: { １年生: 1, ２年生: 2, ３年生: 3, ４年生: 4, ５年生: 5, ６年生: 6, 特別支援: 7,}
+  enum grade: { １年生: 1, ２年生: 2, ３年生: 3, ４年生: 4, ５年生: 5, ６年生: 6, 特別支援: 7, 学年共通: 8,}
   enum subject: { 国語: 1, 社会: 2, 算数: 3, 理科: 4, 生活: 5,
                   音楽: 6 , 図画工作: 7, 家庭: 8, 体育: 9,
                   道徳: 10, 総合: 11, 特別活動: 12, 外国語活動: 13}

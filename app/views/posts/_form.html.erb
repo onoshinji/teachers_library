@@ -13,11 +13,7 @@
           </ul>
         </div>
         <% end %>
-          <%# <%= form.label :タイトル %>
-          <%# <%= form.text_field :title, autofocus: true, class: "form-control form-control-sm", placeholder:"タイトルを入力してください"  %>
-          <%# <%= form.label :説明 %>
-          <%# <%= form.text_area :content, autofocus: true,class: "form-control", placeholder:"説明を５００字以内で記入してください" %>
-
+          <div id="post_form">
           <%= form.label :学年%>
           <%= form.select :grade, Post.grades.keys, selected: 1 %>
 
@@ -27,35 +23,35 @@
           <!-- <p><%= form.label :種類 %> -->
           <%# <%= form.select :kind, Post.kinds.keys, include_blank: "選択してください" %>
           <div>
-          <%= form.label :単元名 %>
+          <% form.label :単元名 %>
           <%= form.text_field :unit ,autofocus: true, autocomplete: "name" ,class: "form-control form-control-sm", placeholder:"単元名を入力してください(必須)" %>
           </div>
-          <%= form.label :経験年数別タグ %>
-          <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
+          <br>
           <div>
-          <%= form.label :ワークシート画像 %>
-          <p>  jpg jpeg gif png形式 </p> 
-          <% if @post.image == "nil" %>
-            <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
-          <% end %>
-          <%= form.file_field :image, onchange: 'previewImage()', class: 'form-control mb-3', accept: 'image/*' %>
-          <%= form.hidden_field :image_cache %>
-          <div class='mt-3 mb-3'>
-            <%# プレビュー用 %>
-            <%= image_tag @post.image.url,
+            <% form.label :ワークシート画像 %>
+
+            <%= form.file_field :image, onchange: 'previewImage()', class: 'form-control mb-3', accept: 'image/*' %>
+            <%= form.hidden_field :image_cache %>
+            <p> jpg jpeg gif png形式可 </p>
+            <div class='mt-3 mb-3'>
+              <%# プレビュー用 %>
+              <%= image_tag @post.image.url,
                 id: 'preview',
                 size: '100x100' %>
-              </div>
+            </div>
           </div>
-          <div>
+          <div id="post_form">
+          <%= form.label :タグ %>
+          <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
+
           <!-- <i class="fa fa-file"></i> -->
           <%# <%= form.label :pdfcsvはこちら %>
           <%# <%= form.file_field :ms_office %>
-          </div>
           <div class="actions">
           <%= form.submit value = "投稿する", class: "btn btn-primary"%>
           </div>
         <% end %>
+        </div>
       </div>
       <!-- <div class="col-9">
         <div class="main_contents">

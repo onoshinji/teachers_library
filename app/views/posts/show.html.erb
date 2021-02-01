@@ -2,7 +2,8 @@
 <p class="alert"><%= alert %></p>
 <span><%= "No.#{@post.id}" %></span>
 <span><i class="fa fa-binoculars"></i><%= @post.views_count %></span>
-<span>  <% unless @post.user_id == current_user.id %>
+<span>
+  <%# <% unless @post.user_id == current_user.id %>
     <% if @favorite.present? %>
       <%= link_to favorite_path(id: @favorite.id), class: 'btn btn-pink btn-sm rounded-pill', method: :delete do %>
         <i class="fa fa-heart"></i>
@@ -12,7 +13,6 @@
         <i class="fa fa-heart-o"></i>
       <% end %>
     <% end %>
-  <% end %>
   <%= @post.favorites.count %>
 </span>
 <%# <%= "#{@post.likes.count}いいね!" %>

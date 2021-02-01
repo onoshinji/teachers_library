@@ -1,5 +1,5 @@
  body {
-  color: black;
+  color: white;
   text-align: center;
   align-items: center;
   background-image: image-url("room.jpg");
@@ -24,4 +24,9 @@ html {
 
 .alert-notice{
   background-color: #a3d1ff;
+}
+
+#post_form{
+  font-size: 1rem;
+  color: white;
 }
