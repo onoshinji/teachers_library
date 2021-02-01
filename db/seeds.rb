@@ -3,6 +3,8 @@
 # Tag.create!(name: "10年以上")
 # Tag.create!(name: "20年以上")
 # Tag.create!(name: "学年主任")
+# Tag.create!(name: "授業用")
+# Tag.create!(name: "宿題用")
 #
 # User.create(name: "admin_user", email: 'admin@gmail.com',
 #             password: 'admin_user', admin: true, confirmed_at: Date.today)

@@ -2,20 +2,32 @@
 <p class="alert"><%= alert %></p>
 <span><%= "No.#{@post.id}" %></span>
 <span><i class="fa fa-binoculars"></i><%= @post.views_count %></span>
-<span><i class="fa fa-heart"></i><%= @post.favorites.count %></span>
-<span>いいね件数: <%= @post.likes.count %></span>
-<% if current_user.already_liked?(@post) %>
-  <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete ,class: 'btn btn-primary btn-sm'%>
-<% else %>
-  <%= button_to 'いいね', post_likes_path(@post) ,class: 'btn btn-primary btn-sm'%>
-<% end %>
+<span>  <% unless @post.user_id == current_user.id %>
+    <% if @favorite.present? %>
+      <%= link_to favorite_path(id: @favorite.id), class: 'btn btn-pink btn-sm rounded-pill', method: :delete do %>
+        <i class="fa fa-heart"></i>
+      <% end %>
+    <% else %>
+      <%= link_to  favorites_path(post_id: @post.id), class: 'btn btn-pink btn-sm rounded-pill', method: :post do %>
+        <i class="fa fa-heart-o"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= @post.favorites.count %>
+</span>
+<%# <%= "#{@post.likes.count}いいね!" %>
+<%# <% if current_user.already_liked?(@post) %>
+  <%# <%= button_to 'いいね!を取り消す', post_like_path(@post), method: :delete ,class: 'btn btn-primary btn-sm'%>
+<%# <% else %>
+  <%# <%= button_to 'いいね!', post_likes_path(@post) ,class: 'btn btn-primary btn-sm'%>
+<%# <% end %>
 
 <% if  @tag_count >=1 %>
   <% @post.tags.each do |tag| %>
     <span class= 'btn btn-info btn-sm rounded-pill'>
-    <%= tag.name %>
-      </span>
-<% end %>
+      <%= tag.name %>
+    </span>
+  <% end %>
 <% end %>
 <p><%= image_tag @post.image.url %></p>
 <p><%= @post.image.filename %></p>
@@ -29,15 +41,7 @@
 <%# <% else %>
   <%# ファイルはありません %>
 <%# <% end %>
-<div id ="margin">
-  <% unless @post.user_id == current_user.id %>
-    <% if @favorite.present? %>
-      <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
-    <% else %>
-      <%= link_to 'お気に入りする', favorites_path(post_id: @post.id), method: :post, class: 'btn btn-pink' %>
-    <% end %>
-  <% end %>
-</div>
+
 <% if current_user == @post.user %>
 <div id ="margin">
 <%= link_to "投稿を編集する", edit_post_path(@post.id), data: { confirm: '本当に編集していいですか？' } ,class: 'btn btn-primary btn-sm'%>

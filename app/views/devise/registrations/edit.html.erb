@@ -48,14 +48,14 @@
 <div class = "col-8">
   <ul class="nav nav-tabs" role="tablist">
     <li class="active" role="presentation">
-      <a aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab" class="btn btn-sm btn-info">お気に入り</a>
+      <a aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab" class="btn btn-sm btn-pink">お気に入り</a>
     </li>
     <li role="presentation">
       <a aria-controls="tab_b" data-toggle="tab" href="#tab_b" role="tab" class="btn btn-sm btn-primary">自分の投稿</a>
     </li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane" id="tab_a" role="tabpanel">
+    <div class="tab-pane  active" id="tab_a" role="tabpanel">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
@@ -65,7 +65,7 @@
       <p><%= link_to image_tag(favorite.post.image.url(:thumb)), post_path(favorite.post.id) %></p>
       <% end %>
     </div>
-    <div class="tab-pane active" id="tab_b" role="tabpanel">
+    <div class="tab-pane" id="tab_b" role="tabpanel">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <!-- deviseで@postsを取得できていない -->
