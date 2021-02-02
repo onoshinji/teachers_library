@@ -75,8 +75,26 @@ class PostsController < ApplicationController
       filename: "download_file.pdf", type: @post.file_type
     end
   end
+# ソート機能
+  def sort
+    if params[:sort].present?
+      if params[:sort] == 'new'
+        @posts = @posts.order(created_at: :DESC)
+      elsif params[:sort] == 'view'
+        @posts = @posts.order(views_count: :DESC)
+      elsif params[:sort] == 'old'
+        @posts = @posts.order(created_at: :ASC)
+      elsif params[:sort] == 'favorites'
+        @posts = @posts.select('posts.*', 'count(favorites.id) AS favs')
+                       .left_joins(:favorites)
+                       .group('posts.id')
+                       .order('favs desc')
+      end
+    end
+  end
 
   private
+
   def set_post
     @post = Post.find(params[:id])
   end

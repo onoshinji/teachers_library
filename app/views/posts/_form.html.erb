@@ -2,6 +2,7 @@
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
     <div class="col-6 offset-3">
+      <div class="form-group">
         <%= form_with(model: @post, local: true ) do |form| %>
         <% if @post.errors.any? %>
         <div id="error_explanation">
@@ -39,16 +40,17 @@
             </div>
           </div>
           <div id="post_form">
-          <i class="fa fa-tags "></i>
-          <%= form.label :タグ %>
-          <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
-          <!-- <i class="fa fa-file"></i> -->
-          <%# <%= form.label :pdfcsvはこちら %>
-          <%# <%= form.file_field :ms_office %>
-          <div class="actions">
-          <%= form.submit value = "投稿する", class: "btn btn-primary"%>
-          </div>
+            <i class="fa fa-tags "></i>
+            <%= form.label :タグ %>
+            <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
+            <!-- <i class="fa fa-file"></i> -->
+            <%# <%= form.label :pdfcsvはこちら %>
+            <%# <%= form.file_field :ms_office %>
+            <div class="actions">
+              <%= form.submit value = "投稿する", class: "btn btn-primary"%>
+            </div>
         <% end %>
+        </div>
         </div>
       </div>
     </div>
