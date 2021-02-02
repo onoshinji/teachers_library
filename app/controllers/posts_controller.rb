@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :login_user, only:  [:new, :create, :edit, :update, :show,
-                                    :destroy, :worksheets, :findings, :plans, :about]
+                                    :destroy, :worksheets, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
   before_action :ensure_correct_user, only:[:edit,:destroy,]
   def index
@@ -49,27 +49,9 @@ class PostsController < ApplicationController
   end
 
   def worksheets
-    @posts = Post.includes(:tags, :favorites).where(kind: 'ワークシート').page(params[:page]).per(18)
-    main_search
-    tag_search
-    sort
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).includes(:tags, :favorites).order(created_at: :DESC).page(params[:page]).per(24)
   end
-
-  # def findings
-  #   @posts = Post.includes(:tags, :favorites).where(kind: '所見例').page(params[:page]).per(10)
-  #   main_search
-  #   tag_search
-  #   sort
-  # end
-  #
-  # def plans
-  #   @posts = Post.includes(:tags, :favorites).where(kind: '指導案').page(params[:page]).per(5)
-  #   main_search
-  #   tag_search
-  #   sort
-  # end
-  # def about
-  # end
 
   # S3からの画像ダウンロード
   def download
@@ -114,39 +96,9 @@ class PostsController < ApplicationController
       { tag_ids: [] }
     )
   end
-  # 検索機能
-  def main_search
-    if params[:grade_search].present?
-      @posts = @posts.grade_search(params[:grade_search])
-      if params[:subject_search].present? && params[:unit_search].present?
-        @posts = @posts.subject_search(params[:subject_search]).unit_search(params[:unit_search])
-      elsif params[:subject_search].present?
-        @posts = @posts.subject_search(params[:subject_search])
-      elsif params[:unit_search].present?
-        @posts = @posts.unit_search(params[:unit_search])
-      end
-    end
+
+  def search_params
+    params.require(:q).permit(:unit_cont)
   end
 
-  # タグ検索機能
-  def tag_search
-    @posts = @posts.joins(:tags).where(tags: { id: params[:tag_id] }) if params[:tag_id].present?
-  end
-  # ソート機能
-  def sort
-    if params[:sort].present?
-      if params[:sort] == 'new'
-        @posts = @posts.order(created_at: :DESC)
-      elsif params[:sort] == 'view'
-        @posts = @posts.order(views_count: :DESC)
-      elsif params[:sort] == 'old'
-        @posts = @posts.order(created_at: :ASC)
-      elsif params[:sort] == 'favorites'
-        @posts = @posts.select('posts.*', 'count(favorites.id) AS favs')
-                       .left_joins(:favorites)
-                       .group('posts.id')
-                       .order('favs desc')
-      end
-    end
-  end
 end
