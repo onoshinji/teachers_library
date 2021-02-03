@@ -55,26 +55,8 @@
     </li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane  active" id="tab_a" role="tabpanel">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
-      <% favorites_posts = current_user.favorites.order(id: :DESC) %>
-      <% favorites_posts.each do |favorite| %>
-      <%= "No. #{favorite.id}" %><%= " #{favorite.post.user.name}さんの投稿" %>
-      <p><%= link_to image_tag(favorite.post.image.url(:thumb)), post_path(favorite.post.id) %></p>
-      <% end %>
-    </div>
-    <div class="tab-pane" id="tab_b" role="tabpanel">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <!-- deviseで@postsを取得できていない -->
-      <% sorted_posts = current_user.posts.order(created_at: :DESC) %>
-      <% sorted_posts.each do |post| %>
-      <%= "No.#{post.id}" %>
-      <p><%= link_to image_tag(post.image.url(:thumb)), post_path(post.id) %></p>
-      <% end %>
+    <%= render 'favorite' %>
+    <%= render 'my_post' %>
   </div>
-</div>
 </div>
 </div>
