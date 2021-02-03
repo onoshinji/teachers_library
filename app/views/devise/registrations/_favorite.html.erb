@@ -1,0 +1,24 @@
+<div class="tab-pane  active" id="tab_a" role="tabpanel">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  <%# MVCに反しているが、コントローラーで@favoritesがうまく渡せていない %>
+  <div class="row align-items-center ">
+    <% favorites_posts = current_user.favorites.order(id: :DESC) %>
+    <% favorites_posts.each do |favorite| %>
+    <div class="card" style="width: 19rem;">
+      <div class="card-body">
+        <div class="card-header" style="width: 100%">
+          <span><%= "No. #{favorite.id}" %><%= " #{favorite.post.user.name}さんの投稿" %></span>
+          <%= favorite.post.grade %><%= favorite.post.subject %><%= "  #{favorite.post.unit}" %>
+        </div>
+        <img class="bd-placeholder-img card-img-top" width="100%">
+        <p><%= link_to image_tag(favorite.post.image.url(:thumb)), post_path(favorite.post.id) %></p>              <ul class="list-inline">
+        <li class="list-inline-item">
+          <span><i class="fa fa-binoculars"></i><%= favorite.post.views_count %></span>
+          <span><i class="fa fa-heart"></i><%= favorite.post.favorites.count %></span>
+        </li>
+      </div>
+    </div>
+    <% end %>
+</div>
+</div>

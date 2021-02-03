@@ -9,6 +9,7 @@
                                                    音楽: 6 , 図画工作: 7, 家庭: 8, 体育: 9,
                                                    道徳: 10, 総合: 11, 特別活動: 12, 外国語活動: 13}),
                                                    include_blank: '教科指定なし' %>
+    <%= f.select :tags_name_eq, options_for_select({ 宿題用: '宿題用', 授業用: '授業用'}),include_blank: 'タグ指定なし' %>
     <%= f.search_field :unit_cont, class: 'form-control', placeholder: '単元名検索' %>
 
     <div class="input-group-append">
