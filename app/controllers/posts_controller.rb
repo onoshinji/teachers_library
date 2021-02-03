@@ -50,7 +50,7 @@ class PostsController < ApplicationController
 
   def worksheets
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).includes(:tags, :favorites).order(created_at: :DESC).page(params[:page]).per(24)
+    @posts = @q.result(distinct: true).includes(:tags, :favorites).page(params[:page]).per(24)
     if params[:sort].present?
       if params[:sort] == 'new'
         @posts = @posts.order(created_at: :DESC)
@@ -115,5 +115,4 @@ class PostsController < ApplicationController
   def search_params
     params.require(:q).permit(:unit_cont)
   end
-
 end
