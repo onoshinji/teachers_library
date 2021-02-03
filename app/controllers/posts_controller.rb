@@ -90,6 +90,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def privacy_policy
+  end
+
+  def terms_of_use
+  end
   private
 
   def set_post

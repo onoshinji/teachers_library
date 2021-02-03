@@ -11,10 +11,9 @@ Rails.application.routes.draw do
     end
   end
 
-  get :about, to: 'posts#about'
+  get :terms_of_use, to: 'posts#terms_of_use'
+  get :privacy_policy, to: 'posts#privacy_policy'
   get :worksheets, to: 'posts#worksheets'
-  get :findings, to: 'posts#findings'
-  get :plans, to: 'posts#plans'
   # デバイスルーティング
   devise_for :users, controllers: {
     registrations: 'users/registrations',
