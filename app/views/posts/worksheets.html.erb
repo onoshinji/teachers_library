@@ -18,10 +18,13 @@
           </div>
         </div>
         <%# sort_link(@search, :カラム名, 表示名, urlオプション, htmlオプション) %>
-        <div class= 'btn btn-primary btn-sm'>
+        <div class= 'btn btn-guest btn-sm'>
           <%= sort_link(@q, :created_at, "新着順", created_at: :desc ,default_order: :desc, hide_indicator: true) %>
         </div>
-        <div class='btn btn-primary btn-sm'>
+        <div class= 'btn btn-guest btn-sm'>
+          <%= sort_link(@q, :created_at, "古い順", created_at: :asc , hide_indicator: true) %>
+        </div>
+        <div class='btn btn-guest btn-sm'>
           <%= sort_link(@q, :views_count, "閲覧数順", views_count: :desc, default_order: :desc, hide_indicator: true ) %>
         </div>
       <p id="notice"><%= notice %></p>
