@@ -3,7 +3,7 @@ class PostsController < ApplicationController
                                     :destroy, :worksheets, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
   before_action :ensure_correct_user, only:[:edit,:destroy,]
-  
+
   def index
   end
 
@@ -52,7 +52,6 @@ class PostsController < ApplicationController
   def worksheets
     @q = Post.ransack(params[:q])
     @posts = @q.result(distinct: true).includes(:tags, :favorites).page(params[:page]).per(24)
-    if params[:sort].present?
       if params[:sort] == 'new'
         @posts = @posts.order(created_at: :DESC)
       elsif params[:sort] == 'view'
@@ -65,7 +64,6 @@ class PostsController < ApplicationController
                        .group('posts.id')
                        .order('favs desc')
       end
-    end
   end
 
   # S3からの画像ダウンロード
@@ -96,6 +94,7 @@ class PostsController < ApplicationController
 
   def terms_of_use
   end
+
   private
 
   def set_post
