@@ -1,7 +1,5 @@
 
     <div class="tab-pane" id="tab_b" role="tabpanel">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
       <!-- deviseで@postsを取得できていない -->
       <div class="row align-items-center ">
       <% sorted_posts = current_user.posts.includes(:tags, :favorites).order(created_at: :DESC) %>
