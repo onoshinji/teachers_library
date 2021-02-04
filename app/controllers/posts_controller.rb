@@ -3,6 +3,7 @@ class PostsController < ApplicationController
                                     :destroy, :worksheets, :about]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :download, :file_download]
   before_action :ensure_correct_user, only:[:edit,:destroy,]
+  
   def index
   end
 
