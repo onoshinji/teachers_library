@@ -1,7 +1,7 @@
 <div class="row">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-    <div class="col-6 offset-3">
+    <div class="col-7 offset-2">
       <div class="form-group">
         <%= form_with(model: @post, local: true ) do |form| %>
         <% if @post.errors.any? %>
@@ -40,8 +40,7 @@
                 id: 'preview',
                 size: '100x100' %>
             </div>
-          </div>
-          <div id="post_form">
+            </div>
             <i class="fa fa-tags "></i>
             <%= form.label :タグ %>
             <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
@@ -51,8 +50,7 @@
             <div class="actions">
               <%= form.submit value = "投稿する", class: "btn btn-primary"%>
             </div>
-        <% end %>
-        </div>
+            <% end %>
         </div>
       </div>
     </div>
