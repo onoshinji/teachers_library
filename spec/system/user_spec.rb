@@ -19,7 +19,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
       end
     end
     it 'ログインしていない時はホーム画面に飛ぶテスト' do
-      visit plans_path
+      visit worksheets_path
       expect(current_path).to eq root_path
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         fill_in 'メールアドレス', with: 'user1@example.com'
         fill_in 'パスワード', with: '00000000'
         click_button 'ログイン'
-        expect(page).to have_content 'ログイン中'
+        expect(page).to have_content 'ログアウト'
       end
     end
     context 'ログインしている場合' do
@@ -53,7 +53,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
       it 'ログアウトできること' do
         visit root_path
         click_on 'ログアウト'
-        expect(page).to have_content 'あなたは今ログインしていません'
+        expect(page).to have_content 'ログイン'
       end
     end
   end

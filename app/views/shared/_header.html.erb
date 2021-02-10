@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <%= link_to "教材シェア", posts_path ,class: "navbar-brand col-sm-2 col-m " %>
+  <%= link_to "教材シェア", posts_path ,class: "navbar-brand col-sm-2 col-m" %>
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
         <div class="text-left header_text">
@@ -7,10 +7,11 @@
             <i class="fa fa-pencil "></i>
             新しく投稿する
           <% end %>
-          <%= link_to worksheets_path ,class: 'btn btn-primary btn-sm rounded-pill' do%>
-            <i class="fa  fa-file"></i>
-            ワークシートを探す
-          <% end %>
+            <%= link_to worksheets_path ,class: 'btn btn-primary btn-sm rounded-pill' do%>
+              <i class="fa  fa-file"></i>
+              ワークシートを探す
+            <% end %>
+
           <% if user_signed_in? %>
           <%= link_to  "管理者ページ", rails_admin_path ,id: "admin_font" if current_user.admin == true%>
             <%= "#{current_user.name}さん" %>

@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  validates :image, presence: true
+
   validates :grade, presence: true
   validates :subject, presence: true
   validates :unit, presence: true

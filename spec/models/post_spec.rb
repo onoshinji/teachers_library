@@ -11,65 +11,11 @@ RSpec.describe '投稿管理機能', type: :model do
     FactoryBot.create(:post7, user: @user1)
   end
 
-  describe '#titleカラム'  do
-     context '投稿を作成したとき'  do
-       it 'titleが空ならバリデーションが通らない' do
-         post = Post.new(title: '',
-                         content: 'Factory1',
-                         subject:'国語',
-                         unit:'くじらぐも',
-                         grade:'１年生',
-                         kind:'ワークシート')
-         expect(post).not_to be_valid
-       end
-       it 'titleが101文字以上ならバリデーションが通らない' do
-         post = Post.new(title: '1234567890123456789012345678901234567890
-                                1234567890123456789012345678901234567890',
-                         content: 'Factory1',
-                         subject:'国語',
-                         unit:'くじらぐも',
-                         grade:'１年生',
-                         kind:'ワークシート')
-         expect(post).not_to be_valid
-       end
-     end
-  end
-  describe '#contentカラム'  do
-     context '投稿を作成したとき'  do
-       it 'contentが空ならバリデーションが通らない' do
-         post = Post.new(title: 'title',
-                         content: '',
-                         subject:'国語',
-                         unit:'くじらぐも',
-                         grade:'１年生',
-                         kind:'ワークシート')
-         expect(post).not_to be_valid
-       end
-       it 'contentが501文字以上ならバリデーションが通らない' do
-         post = Post.new(title: 'title',
-                         content: '1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890
-                                   1234567890123456789012345678901234567890',
-                         subject:'国語',
-                         unit:'くじらぐも',
-                         grade:'１年生',
-                         kind:'ワークシート')
-         expect(post).not_to be_valid
-       end
-     end
-  end
 
   describe '#gradeカラム'  do
      context '投稿を作成したとき'  do
        it 'gradeが空ならバリデーションが通らない' do
-         post = Post.new(title: 'title',
-                         content: 'content',
+         post = Post.new(
                          subject:'国語',
                          unit:'くじらぐも',
                          grade:'',
@@ -82,8 +28,7 @@ RSpec.describe '投稿管理機能', type: :model do
   describe '#unitカラム'  do
      context '投稿を作成したとき'  do
        it 'unitが空ならバリデーションが通らない' do
-         post = Post.new(title: 'title',
-                         content: 'content',
+         post = Post.new(
                          subject:'国語',
                          unit:'',
                          grade:'１年生',
@@ -96,8 +41,7 @@ RSpec.describe '投稿管理機能', type: :model do
   describe '#subjectカラム'  do
      context '投稿を作成したとき'  do
        it 'subjectが空ならバリデーションが通らない' do
-         post = Post.new(title: 'title',
-                         content: 'content',
+         post = Post.new(
                          subject:'',
                          unit:'くじらぐも',
                          grade:'１年生',
@@ -110,8 +54,7 @@ RSpec.describe '投稿管理機能', type: :model do
   describe '#unitカラム'  do
      context '投稿を作成したとき'  do
        it 'unitが空ならバリデーションが通らない' do
-         post = Post.new(title: 'title',
-                         content: 'content',
+         post = Post.new(
                          subject:'国語',
                          unit:'',
                          grade:'１年生',
